@@ -957,12 +957,12 @@
             <div class="phone__row">
                 <h2 class="phone__caption-watch">Telefonlar</h2>
                 <div class="phone__tabcontainer">
-                    <button role="button" [class]="selectedPhone == 'gb-all' ? 'active' : ''" class="active" on="tap:AMP.setState({selectedPhone: 'gb-all'})">Hepsi</button>
-                    <button id="btn-32" role="button" [class]="selectedPhone == '32-gb' ? 'active' : ''" on="tap:AMP.setState({selectedPhone: '32-gb'})">32 GB</button>
-                    <button id="btn-64" role="button" [class]="selectedPhone == '64-gb' ? 'active' : ''" on="tap:AMP.setState({selectedPhone: '64-gb'})">64 GB</button>
-                    <button id="btn-128" role="button" [class]="selectedPhone == '128-gb' ? 'active' : ''" on="tap:AMP.setState({selectedPhone: '128-gb'})">128 GB</button>
-                    <button id="btn-256" role="button" [class]="selectedPhone == '256-gb' ? 'active' : ''" on="tap:AMP.setState({selectedPhone: '256-gb'})">256 GB</button>
-                    <button id="btn-512" role="button" [class]="selectedPhone == '512-gb' ? 'active' : ''" on="tap:AMP.setState({selectedPhone: '512-gb'})">512 GB</button>
+                    <button class="btn-product-click" role="button" [class]="selectedPhone == 'gb-all' ? 'active' : ''" class="active" on="tap:AMP.setState({selectedPhone: 'gb-all'})">Hepsi</button>
+                    <button class="btn-product-click" id="btn-32" role="button" [class]="selectedPhone == '32-gb' ? 'active' : ''" on="tap:AMP.setState({selectedPhone: '32-gb'})">32 GB</button>
+                    <button class="btn-product-click" id="btn-64" role="button" [class]="selectedPhone == '64-gb' ? 'active' : ''" on="tap:AMP.setState({selectedPhone: '64-gb'})">64 GB</button>
+                    <button class="btn-product-click" id="btn-128" role="button" [class]="selectedPhone == '128-gb' ? 'active' : ''" on="tap:AMP.setState({selectedPhone: '128-gb'})">128 GB</button>
+                    <button class="btn-product-click" id="btn-256" role="button" [class]="selectedPhone == '256-gb' ? 'active' : ''" on="tap:AMP.setState({selectedPhone: '256-gb'})">256 GB</button>
+                    <button class="btn-product-click" id="btn-512" role="button" [class]="selectedPhone == '512-gb' ? 'active' : ''" on="tap:AMP.setState({selectedPhone: '512-gb'})">512 GB</button>
                 </div>
             </div>
             <div class="tab-wrap">
