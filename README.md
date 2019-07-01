@@ -1,1 +1,0 @@
-# fkarakutuk.github.io
