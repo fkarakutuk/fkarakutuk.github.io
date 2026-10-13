@@ -335,7 +335,7 @@ button{cursor:pointer}
         <div class="rule"><span class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></span><div><b>Kombo</b>Arka arkaya topla, çarpan ×5'e kadar artsın.</div></div>
         <div class="rule"><span class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><div><b>Güçlendirme</b>Kalkan, mıknatıs ve 2× puan.</div></div>
       </div>
-      <p class="foot">Coin listesi ve ikonlar Stablex piyasalar sayfasından alınmıştır. Bu demo sürümde fiyat mumları yaklaşık aylık fiyatlardan üretilmiştir. Skorların yalnızca bu tarayıcıda saklanır.</p>
+      <p class="foot">Coin listesi ve ikonlar Stablex piyasalar sayfasından alınmıştır. Fiyat mumları Binance ve Kraken verisinden gelir ve her gün güncellenir<span id="pxUpd"></span>. Skorların yalnızca bu tarayıcıda saklanır.</p>
     </section>
 
     <aside class="picker" aria-labelledby="pickH">
@@ -418,6 +418,7 @@ button{cursor:pointer}
 <div class="toast" id="toast" hidden></div>
 
 <script src="icons.js"></script>
+<script>document.write('<script src="prices.js?d='+new Date().toISOString().slice(0,10)+'"><\/script>')</script>
 <script>
 /* ============================================================
    DATA
@@ -520,8 +521,18 @@ function gauss(r){let u=0,v=0;while(!u)u=r();while(!v)v=r();return Math.sqrt(-2*
 const WEEK = 7*864e5;
 const cache = {};
 
+/* Real candles from prices.js (Binance/Kraken, refreshed daily). Falls back to the
+   approximate monthly anchors below when that file is missing. */
+function realCandles(sym){
+  const P=(window.COIN_PRICES||{})[sym];if(!P||P.d.length<40)return null;
+  const DAY=864e5,c=[];
+  for(let i=0;i<P.d.length;i++){const [o,h,l,cl]=P.d[i];c.push({t:P.t[i]*DAY,lo_:Math.log(o),lc:Math.log(cl),lh:Math.log(Math.max(h,o,cl)),ll:Math.log(Math.min(l,o,cl))})}
+  c.stepDays=P.s;return c;
+}
 function buildCandles(sym){
   if(cache[sym]) return cache[sym];
+  const real=realCandles(sym);
+  if(real) return cache[sym]=finishCandles(sym,real);
   const [name,cat,str] = RAW[sym];
   const anchors = str.split(",").map(s=>{const [d,p]=s.split(":");const [y,m]=d.split("-").map(Number);return {t:Date.UTC(y,m-1,15),p:+p}});
   const r = rng(hash(sym+"v3"));
@@ -544,6 +555,10 @@ function buildCandles(sym){
     const wick=sig*0.45;
     c.push({t:t0+i*step, lo_:lo, lc, lh:Math.max(lo,lc)+Math.abs(gauss(r))*wick, ll:Math.min(lo,lc)-Math.abs(gauss(r))*wick});
   }
+  c.stepDays=Math.round(step/DAY);
+  return cache[sym]=finishCandles(sym,c);
+}
+function finishCandles(sym,c){
   // Bollinger 20 / 2σ on log closes
   const N=20; let runMax=-Infinity;
   for(let i=0;i<c.length;i++){
@@ -557,8 +572,7 @@ function buildCandles(sym){
   for(let pass=0;pass<2;pass++) for(let i=1;i<c.length-1;i++){c[i].half=(c[i-1].half+2*c[i].half+c[i+1].half)/4}
   const ev = EVENTS[sym]||{};
   c.forEach(k=>{const d=new Date(k.t);const key=d.getUTCFullYear()+"-"+String(d.getUTCMonth()+1).padStart(2,"0");if(ev[key]&&!Object.values(c).some(x=>x.evKey===key)){k.ev=ev[key];k.evKey=key}});
-  c.stepDays=Math.round(step/DAY);
-  cache[sym]=c; return c;
+  return c;
 }
 
 /* ============================================================
@@ -1264,6 +1278,7 @@ function dailyCoin(d=new Date()){
   return pool[hash("coinkusu:"+key)%pool.length];
 }
 const DAILY=dailyCoin();
+if(window.COIN_PRICES_UPDATED){const [y,m,d]=window.COIN_PRICES_UPDATED.split("-");document.getElementById("pxUpd").textContent=` (son güncelleme ${d}.${m}.${y})`}
 function matches(s,f,q){
   const [n,cat]=RAW[s];
   if(q&&!(s.toLowerCase().includes(q)||n.toLowerCase().includes(q)))return false;
