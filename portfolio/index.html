@@ -81,7 +81,7 @@ p{margin:0}
 .hero-cta{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
 @media (max-width:820px){.hero-foot{grid-template-columns:1fr}.hero-cta{justify-content:flex-start}}
 .chart{position:relative;margin-top:56px;height:190px;border-top:1px solid var(--rule)}
-.chart canvas{width:100%;height:100%;display:block;cursor:crosshair}
+.chart canvas{width:100%;height:100%;display:block;cursor:crosshair;touch-action:pan-y}
 .readout{position:absolute;top:12px;font-family:var(--mono);font-size:.72rem;background:var(--ink);color:#fff;padding:5px 9px;border-radius:7px;pointer-events:none;transform:translateX(-50%);white-space:nowrap;opacity:0;transition:opacity .15s}
 .chart-label{position:absolute;right:0;bottom:10px;font-family:var(--mono);font-size:.68rem;color:var(--soft);background:var(--paper);padding:2px 6px}
 
@@ -358,8 +358,10 @@ footer .logo img{width:28px;height:28px}
   .hero-cta{flex-direction:row}
   .hero-cta .pill{flex:1;justify-content:center;padding:12px 10px;font-size:.66rem}
   .socials .so-txt{flex:1 1 100%;justify-content:flex-start}
-  .chart{display:none}
-  .hero{padding-bottom:36px}
+  .chart{height:150px;margin-top:30px;padding-bottom:26px;border-top:0;touch-action:pan-y}
+  .chart canvas{height:124px}
+  .chart-label{bottom:0;right:auto;left:0;font-size:.6rem;padding:0;background:none}
+  .readout{top:0;font-size:.64rem}
   .marquee{padding:18px 0}
   .track{gap:40px}
   .mq{height:26px}
@@ -462,7 +464,7 @@ footer .logo img{width:28px;height:28px}
     <div class="chart" id="chartBox">
       <canvas id="chart" aria-label="Interactive chart of simulated daily sessions" role="img"></canvas>
       <div class="readout" id="readout"></div>
-      <div class="chart-label" data-i="hero.chart">simüle veri · imleci gezdirin</div>
+      <div class="chart-label" id="chartLbl" data-i="hero.chart">simüle veri · imleci gezdirin</div>
     </div>
   </div>
 </header>
@@ -592,7 +594,7 @@ var T={tr:{
 "hero.hello":"Merhaba, ben Furkan",
 "hero.h1":'Verinin <span class="o">dağınık</span> olduğu yerde <span class="chip"><img src="logos/tools/ga.svg" alt=""><img src="logos/tools/gtm.svg" alt=""><img src="logos/tools/bigquery.svg" alt=""></span> düzen kurarım.',
 "hero.lede":"İstanbul'da <b>Web &amp; App Analytics Specialist</b> olarak çalışıyorum. Tracking kurar, MMP ve atribüsyonu bağlar, ham veriyi BigQuery'de modelleyip ekiplerin gerçekten kullandığı raporlara çeviririm.",
-"hero.c1":"İşlerime bak","hero.c2":"Bir proje konuşalım","hero.chart":"simüle veri · imleci gezdirin",
+"hero.c1":"İşlerime bak","hero.c2":"Bir proje konuşalım","hero.chart":"simüle veri · imleci gezdirin","hero.chartm":"simüle veri · dokunun ya da parmağınızı kaydırın",
 "ab.k":"Hakkımda","ab.t":"Veriyi önce güvenilir, sonra kullanışlı yaparım.",
 "ab.bio":"8 yılı aşkın süredir fintech, perakende, mobilite ve ajans tarafında çalışıyorum. İşim, bir kullanıcının ilk tıklamasından satın almasına kadar her adımın <em>doğru ölçülmesi</em> ve bu verinin pazarlama, ürün ve yönetim için <em>aynı dili konuşması</em>. Rakamlar tutmadığında beni ararlar; genelde sorun iki aracın arasındadır.",
 "ab.now":"ŞU AN","ab.nowd":"Kripto varlık alım-satım platformu · İstanbul · Türkiye pazarı",
@@ -614,7 +616,7 @@ var T={tr:{
 "hero.hello":"Hi, I'm Furkan",
 "hero.h1":'I bring order where <span class="chip"><img src="logos/tools/ga.svg" alt=""><img src="logos/tools/gtm.svg" alt=""><img src="logos/tools/bigquery.svg" alt=""></span> data gets <span class="o">messy</span>.',
 "hero.lede":"I'm a <b>Web &amp; App Analytics Specialist</b> in Istanbul. I set up tracking, connect MMP and attribution, model raw data in BigQuery and turn it into reports teams actually use.",
-"hero.c1":"See my work","hero.c2":"Let's talk about a project","hero.chart":"simulated data · move your cursor",
+"hero.c1":"See my work","hero.c2":"Let's talk about a project","hero.chart":"simulated data · move your cursor","hero.chartm":"simulated data · tap or drag across the bars",
 "ab.k":"About","ab.t":"First I make data trustworthy. Then I make it useful.",
 "ab.bio":"For 8+ years I've worked across fintech, retail, mobility and agency teams. My job is making sure every step from a user's first tap to their purchase is <em>measured correctly</em>, and that marketing, product and leadership <em>read the same numbers</em>. People call me when the numbers don't match; usually the problem sits between two tools.",
 "ab.now":"NOW","ab.nowd":"Crypto-asset trading platform · Istanbul · Türkiye market",
@@ -659,38 +661,45 @@ function logoHTML(k,h){
 }
 
 /* ---------- Hero ---------- */
-function renderHero(){ document.getElementById("h1").innerHTML=t("hero.h1"); }
+function renderHero(){ document.getElementById("h1").innerHTML=t("hero.h1"); var cl=document.getElementById("chartLbl"); if(cl&&window.matchMedia("(hover: none)").matches) cl.innerHTML=t("hero.chartm"); }
 
 /* interactive chart */
 var cv=document.getElementById("chart"), box=document.getElementById("chartBox"), ro=document.getElementById("readout");
 var N=96, base=[], mouseX=-1, cur=[];
 (function(){ var v=.45; for(var i=0;i<N;i++){ v+= (Math.sin(i*.35)*.04)+(Math.random()-.5)*.08; v=Math.max(.18,Math.min(.8,v)); var wk=(i%7===5||i%7===6)?.78:1; base.push(v*wk); cur.push(v*wk);} })();
 var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches, tick=0;
+var touchMode=window.matchMedia("(hover: none)").matches, idleT=null, lastTouch=0;
 function draw(){
   var dpr=Math.min(window.devicePixelRatio||1,2), w=box.clientWidth, h=box.clientHeight;
+  if(!w){ requestAnimationFrame(draw); return; }
   if(cv.width!==Math.round(w*dpr)){cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr);}
   var c=cv.getContext("2d"); c.setTransform(dpr,0,0,dpr,0,0); c.clearRect(0,0,w,h);
-  var gap=4, bw=(w-gap*(N-1))/N, hov=-1;
-  if(mouseX>=0) hov=Math.min(N-1,Math.max(0,Math.floor(mouseX/(bw+gap))));
-  for(var i=0;i<N;i++){
-    var target=base[i]+(reduce?0:Math.sin(tick*.02+i*.25)*.03);
-    if(hov>=0){ var d=Math.abs(i-hov); target+= Math.max(0,.32-d*.06); }
-    cur[i]+= (target-cur[i])*.14;
-    var bh=Math.max(4,cur[i]*(h-28)), x=i*(bw+gap), y=h-bh;
-    var isH = i===hov;
-    c.fillStyle = isH ? "#FF5A1F" : (hov>=0 && Math.abs(i-hov)<4 ? "#FFB08F" : "#E3E1DA");
-    var r=Math.min(4,bw/2); c.beginPath(); c.moveTo(x,h); c.lineTo(x,y+r); c.quadraticCurveTo(x,y,x+r,y); c.lineTo(x+bw-r,y); c.quadraticCurveTo(x+bw,y,x+bw,y+r); c.lineTo(x+bw,h); c.fill();
+  var small=w<640, n=small?32:N, gap=small?3:4, bw=(w-gap*(n-1))/n, hov=-1, auto=false;
+  if(mouseX>=0) hov=Math.min(n-1,Math.max(0,Math.floor(mouseX/(bw+gap))));
+  else if(touchMode && !reduce && Date.now()-lastTouch>2500){ hov=Math.floor((tick/9)%(n+12))-6; auto=true; if(hov<0||hov>=n) hov=-1; }
+  for(var i=0;i<n;i++){
+    var idx=Math.floor(i*N/n);
+    var target=base[idx]+(reduce?0:Math.sin(tick*.02+i*.25)*.03);
+    if(hov>=0){ var d=Math.abs(i-hov); target+= Math.max(0,(small?.26:.32)-d*(small?.07:.06)); }
+    cur[idx]+= (target-cur[idx])*.14;
+    var bh=Math.max(4,cur[idx]*(h-(small?36:28))), x=i*(bw+gap), y=h-bh;
+    c.fillStyle = i===hov ? "#FF5A1F" : (hov>=0 && Math.abs(i-hov)<(small?3:4) ? "#FFB08F" : "#DEDBD2");
+    var r=Math.min(small?3:4,bw/2); c.beginPath(); c.moveTo(x,h); c.lineTo(x,y+r); c.quadraticCurveTo(x,y,x+r,y); c.lineTo(x+bw-r,y); c.quadraticCurveTo(x+bw,y,x+bw,y+r); c.lineTo(x+bw,h); c.fill();
   }
-  if(hov>=0){
-    var val=Math.round(cur[hov]*14800+1200), day=new Date(2026,0,1+hov);
+  if(hov>=0 && !auto){
+    var idx2=Math.floor(hov*N/n), val=Math.round(cur[idx2]*14800+1200), day=new Date(2026,0,1+idx2);
     ro.textContent=day.toLocaleDateString(lang==="tr"?"tr-TR":"en-GB",{day:"numeric",month:"short"})+" · "+val.toLocaleString(lang==="tr"?"tr-TR":"en-GB")+" "+t("session");
-    ro.style.left=(hov*(bw+gap)+bw/2)+"px"; ro.style.opacity=1;
+    var half=(ro.offsetWidth||140)/2, left=Math.min(w-half,Math.max(half,hov*(bw+gap)+bw/2));
+    ro.style.left=left+"px"; ro.style.opacity=1;
   } else ro.style.opacity=0;
   tick++;
   if(!reduce||hov>=0) requestAnimationFrame(draw);
 }
-box.addEventListener("pointermove",function(e){var r=box.getBoundingClientRect(); var was=mouseX; mouseX=e.clientX-r.left; if(reduce&&was<0) requestAnimationFrame(draw);});
-box.addEventListener("pointerleave",function(){mouseX=-1; if(reduce) requestAnimationFrame(draw);});
+function setX(e){var r=box.getBoundingClientRect(); var was=mouseX; mouseX=e.clientX-r.left; if(reduce&&was<0) requestAnimationFrame(draw);}
+box.addEventListener("pointermove",function(e){ if(e.pointerType!=="mouse"){lastTouch=Date.now();} setX(e); });
+box.addEventListener("pointerdown",function(e){ lastTouch=Date.now(); clearTimeout(idleT); setX(e); });
+box.addEventListener("pointerleave",function(e){ if(e.pointerType==="mouse"){ mouseX=-1; if(reduce) requestAnimationFrame(draw);} });
+["pointerup","pointercancel"].forEach(function(ev){ box.addEventListener(ev,function(e){ if(e.pointerType!=="mouse"){ lastTouch=Date.now(); clearTimeout(idleT); idleT=setTimeout(function(){ mouseX=-1; if(reduce) requestAnimationFrame(draw); },1800);} }); });
 window.addEventListener("resize",function(){ if(reduce) requestAnimationFrame(draw); });
 requestAnimationFrame(draw);
 
