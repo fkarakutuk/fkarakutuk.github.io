@@ -341,6 +341,81 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
 footer .logo img{width:28px;height:28px}
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;font-size:.88rem;z-index:200;transition:.25s;pointer-events:none}
 .toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- mobile ---------- */
+@media (max-width:640px){
+  body{font-size:16px}
+  .nav{top:10px}
+  .bar{padding:6px 6px 6px 8px}
+  .logo span{display:none}
+  .logo img{width:34px;height:34px}
+  .right .pill{padding:9px 14px}
+  .hero{padding:104px 0 0}
+  .hero h1{font-size:clamp(1.9rem,9.2vw,2.6rem);margin-top:20px}
+  .hero h1 .chip{display:none}
+  .hero-foot{gap:22px;margin-top:22px}
+  .hero-foot p{font-size:1.02rem}
+  .hero-cta{flex-direction:row}
+  .hero-cta .pill{flex:1;justify-content:center;padding:12px 10px;font-size:.66rem}
+  .socials .so-txt{flex:1 1 100%;justify-content:flex-start}
+  .chart{display:none}
+  .hero{padding-bottom:36px}
+  .marquee{padding:18px 0}
+  .track{gap:40px}
+  .mq{height:26px}
+  section.s{padding:72px 0}
+  .head{margin-bottom:26px}
+  .head h2{font-size:1.65rem}
+  .b{padding:20px;border-radius:20px}
+  .b.bio{font-size:1.05rem}
+  .b.stat{min-height:130px}
+  .b.stat .n{font-size:2.4rem}
+  .sv{min-height:0;padding:22px;border-radius:20px}
+  .sv:hover,.gi:hover,.case:hover,.tool:hover{transform:none}
+  .case{min-height:0;padding:22px;border-radius:22px;gap:0}
+  .case .art{display:none}
+  .case h3{font-size:1.25rem;margin:16px 0 10px}
+  .case p{font-size:.95rem}
+  .case .go{margin-top:18px}
+  .stack{gap:12px}
+  .gfil{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+  .gfil button{flex:none}
+  .gal{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:0 -16px;padding:4px 16px 14px;scrollbar-width:none}
+  .gal::-webkit-scrollbar,.gfil::-webkit-scrollbar{display:none}
+  .gi,.gi.wide{flex:0 0 84%;scroll-snap-align:start}
+  .gi .ph{height:170px}
+  .gi .tx{padding:16px}
+  .gi p{font-size:.88rem}
+  .row button{padding:20px 2px;gap:10px}
+  .row .role{font-size:1rem}
+  .wall{gap:10px}
+  .tile{aspect-ratio:auto;min-height:118px;padding:14px;border-radius:18px}
+  .tile .cap{flex-direction:column;gap:2px;font-size:.6rem}
+  .tile .lg img{max-height:32px;max-width:80%}
+  .tile .hv{font-size:.78rem;padding:10px 12px}
+  .tools{grid-template-columns:repeat(3,1fr);gap:8px}
+  .tool{padding:14px 6px 10px;font-size:.7rem;border-radius:16px;gap:8px}
+  .tool .im{height:32px;min-width:32px}
+  .tool .im img{max-height:30px;max-width:72px}
+  .cred{padding:18px}
+  .cred li{font-size:.86rem}
+  .contact{border-radius:26px;padding:26px 20px;gap:28px}
+  .contact h2{font-size:2rem}
+  .mail code{font-family:var(--body);font-size:.92rem;text-transform:none;word-break:break-all}
+  form.f{padding:18px;border-radius:20px}
+  .modal{padding:0}
+  .sheet{border-radius:0;min-height:100%;border:0}
+  .sbar{padding:10px 12px}
+  .sbar .tagline{display:none}
+  .sbar .c{width:100%;justify-content:space-between}
+  .sb{padding:8px 11px}
+  .sbody{padding:22px 18px 40px}
+  .sbody h2{font-size:1.4rem}
+  .lb .shot{max-height:none}
+  pre.code{font-size:.66rem;padding:14px}
+  .pipe2 .st::after{display:none}
+  footer .wrap{flex-direction:column;align-items:flex-start;gap:8px}
+}
 </style>
 </head>
 <body>
