@@ -432,6 +432,20 @@ section.s{padding:130px 0}
 .dark-sec .sv:not(.dark):not(.grad),.dark-sec .gi{color:var(--ink)}
 .dark-sec .sv.grad{color:#111}
 .bar{background:rgba(255,255,255,.96)}
+
+/* softer light sections */
+:root{--paper:#E9E8E4;--card:#F3F2EF;--rule:#D9D7D1;--soft:#55554F}
+html,body{background:#E9E8E4}
+.marquee{background:#F1F0EC;border-color:#D9D7D1}
+.marquee::before{background:linear-gradient(90deg,#F1F0EC,transparent)}
+.marquee::after{background:linear-gradient(-90deg,#F1F0EC,transparent)}
+.bar{background:rgba(243,242,239,.96)}
+.b,.tile,.tool,.cred,.gi,.sv:not(.dark):not(.grad){background-color:var(--card)}
+.links a:hover,.links a.on{background:#E4E3DF}
+form.f{background:#F3F2EF}
+form.f input,form.f textarea{background:#E9E8E4}
+.sheet,.sbar{background:#F3F2EF}
+.facts div,.pipe2 .st,.lab,.lb .two div{background:#E9E8E4}
 /* ---------- mobile ---------- */
 @media (max-width:640px){
   body{font-size:16px}
