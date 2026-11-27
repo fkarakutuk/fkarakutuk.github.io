@@ -371,6 +371,67 @@ footer .logo img{width:28px;height:28px}
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;font-size:.88rem;z-index:200;transition:.25s;pointer-events:none}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
+
+/* ===== Azda-closer layer ===== */
+body{background:#fff}
+html{background:#fff}
+:root{--paper:#FFFFFF;--rule:#E6E6E6}
+.hero{background:#0A0A0A;color:#fff;padding-bottom:0;border-radius:0 0 0 0}
+.hero .hello{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.16);color:#fff}
+.hero h1{color:#fff;font-size:clamp(2.6rem,7vw,6.6rem);max-width:12.5em}
+.hero h1 .chip{background:#fff}
+.hero-foot p{color:rgba(255,255,255,.66)}
+.hero-foot p b{color:#fff}
+.hero .so{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.18);color:#fff}
+.hero .so:hover{background:#fff;color:#111}
+.hero .pill{background:#fff;color:#111}
+.hero .pill:hover{background:var(--grad);color:#111}
+.hero .pill.light{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}
+.hero .chart{border-top-color:rgba(255,255,255,.12)}
+.hero .chart-label{background:transparent;color:rgba(255,255,255,.5)}
+.hero .readout{background:#fff;color:#111}
+.sphere{opacity:1;top:90px;width:min(640px,50vw);right:max(-160px,calc((100vw - var(--max))/2 - 200px))}
+.tri{position:absolute;width:min(330px,24vw);right:calc(max(-160px,calc((100vw - var(--max))/2 - 200px)) + min(640px,50vw)*.62);top:70px;z-index:0;transform:rotate(-8deg);filter:drop-shadow(0 30px 60px rgba(255,61,127,.25))}
+.vtext{position:absolute;left:14px;top:190px;writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--display);font-weight:700;font-size:.78rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.35);pointer-events:none}
+.vt-r{left:auto;right:18px;top:140px;transform:none}
+section.s{position:relative}
+.dark-sec{background:#0A0A0A;color:#fff}
+.dark-sec .head p{color:rgba(255,255,255,.62)}
+.dark-sec .kick{color:rgba(255,255,255,.6)}
+.dark-sec .dots-deco circle[fill="#111"]{fill:#fff}
+.dark-sec .gfil button{background:transparent;color:#fff;border-color:rgba(255,255,255,.25)}
+.dark-sec .gfil button[aria-pressed="true"]{background:#fff;color:#111;border-color:#fff}
+.dark-sec .privacy{color:rgba(255,255,255,.55)}
+.dark-sec .gi{border-color:transparent}
+.dark-sec .sv{border-color:rgba(255,255,255,.08)}
+.dark-sec .sv.dark{background-color:#161616}
+.head h2{font-size:clamp(2.4rem,6.2vw,5.6rem);line-height:.98;max-width:14em;letter-spacing:-.01em}
+.head{margin-bottom:56px}
+section.s{padding:130px 0}
+.case{border-radius:28px}
+.contact{background:#0A0A0A;color:#fff;overflow:hidden}
+.contact h2{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.contact p{color:rgba(255,255,255,.7)}
+.contact::before{background-image:radial-gradient(rgba(255,255,255,.55) 1.6px,transparent 1.7px);right:-40px;top:auto;bottom:-80px;width:420px;height:420px}
+.contact::after{content:"";position:absolute;left:-70px;top:-70px;width:260px;height:240px;background:var(--grad);clip-path:polygon(0 0,100% 45%,30% 100%);opacity:.95;pointer-events:none}
+.contact>div:first-child{padding-top:40px}
+.mail code{background:rgba(255,255,255,.1);color:#fff}
+.mail button{background:#fff;color:#111}
+.soc a{border-color:rgba(255,255,255,.3);color:#fff}
+.soc a:hover{background:#fff;color:#111}
+@media (max-width:900px){.tri{display:none}.vtext{display:none}}
+@media (max-width:640px){
+  .hero h1{font-size:clamp(2rem,9.6vw,2.7rem)}
+  .sphere{width:340px;right:-140px;top:70px;opacity:.7}
+  .head h2{font-size:2rem}
+  section.s{padding:80px 0}
+  .contact::after{width:150px;height:140px;left:-50px;top:-50px}
+}
+
+
+.dark-sec .sv:not(.dark):not(.grad),.dark-sec .gi{color:var(--ink)}
+.dark-sec .sv.grad{color:#111}
+.bar{background:rgba(255,255,255,.96)}
 /* ---------- mobile ---------- */
 @media (max-width:640px){
   body{font-size:16px}
@@ -471,6 +532,8 @@ footer .logo img{width:28px;height:28px}
 
 <header class="hero" id="top">
   <canvas class="sphere" id="sphere" aria-hidden="true"></canvas>
+  <svg class="tri" id="tri" viewBox="0 0 400 360" aria-hidden="true"><defs><linearGradient id="tg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#18D9C9"/><stop offset=".5" stop-color="#FF9A3D"/><stop offset="1" stop-color="#FF3D7F"/></linearGradient></defs><polygon points="20,10 390,170 120,350" fill="url(#tg1)"/><g fill="#fff"><polygon points="40,40 49,45 40,50"/><polygon points="62,49 71,54 62,59"/><polygon points="84,58 93,63 84,68"/><polygon points="106,67 115,72 106,77"/><polygon points="128,76 137,81 128,86"/><polygon points="150,85 159,90 150,95"/><polygon points="46,64 55,69 46,74"/><polygon points="68,73 77,78 68,83"/><polygon points="90,82 99,87 90,92"/><polygon points="112,91 121,96 112,101"/><polygon points="134,100 143,105 134,110"/><polygon points="52,88 61,93 52,98"/><polygon points="74,97 83,102 74,107"/><polygon points="96,106 105,111 96,116"/><polygon points="118,115 127,120 118,125"/><polygon points="58,112 67,117 58,122"/><polygon points="80,121 89,126 80,131"/><polygon points="102,130 111,135 102,140"/></g></svg>
+  <span class="vtext" aria-hidden="true">Web &amp; App Analytics</span>
   <div class="wrap">
     <span class="hello"><span class="av">FK</span><span data-i="hero.hello">Merhaba, ben Furkan</span><span class="dot" aria-hidden="true"></span></span>
     <h1 id="h1"></h1>
@@ -521,14 +584,14 @@ footer .logo img{width:28px;height:28px}
   </div>
 </section>
 
-<section class="s" id="services" style="padding-top:20px">
+<section class="s dark-sec" id="services"><span class="vtext vt-r" aria-hidden="true">Measure everything</span>
   <div class="wrap">
     <div class="head"><div><div class="kick" data-i="sv.k">Hizmet kapsamı</div><h2 data-i="sv.t">İlk event'ten son dashboard'a kadar.</h2></div><p data-i="sv.p">Tek bir parçayı ya da altyapının tamamını üstlenebilirim. En sık çalıştığım alanlar:</p></div>
     <div class="svc" id="svc"></div>
   </div>
 </section>
 
-<section class="s" id="work" style="padding-top:20px">
+<section class="s" id="work">
   <div class="wrap">
     <div class="head"><div><div class="kick" data-i="wk.k">Seçili işler</div><h2 data-i="wk.t">Bir veri problemine nasıl yaklaşıyorum?</h2></div><p data-i="wk.p">Kurum içi işler, ajans projeleri ve analitik case çalışmalarından. Müşteri verisi ve rakamlar çıkarıldı; görünen şey yöntem.</p></div>
     <div class="stack" id="stack"></div>
@@ -537,7 +600,7 @@ footer .logo img{width:28px;height:28px}
 </section>
 
 
-<section class="s" id="dashboards" style="padding-top:20px">
+<section class="s dark-sec" id="dashboards"><span class="vtext vt-r" aria-hidden="true">Reports · Alerts · Checks</span>
   <div class="wrap">
     <div class="head"><div><div class="kick" data-i="db.k">Dashboard'lar &amp; otomasyonlar</div><h2 data-i="db.t">Kurduğum raporlar, kontroller ve alarmlar.</h2></div><p data-i="db.p">Freelance ve ajans projelerimden örnekler. Rakamlar ve müşteri adları bulanıklaştırıldı; görmeniz gereken yapı ve kurgu.</p></div>
     <div class="gfil" id="gfil"></div>
@@ -754,7 +817,7 @@ function draw(){
     cur[idx]+= (target-cur[idx])*.14;
     var bh=Math.max(4,cur[idx]*(h-(small?36:28))), x=i*(bw+gap), y=h-bh;
     var near=hov>=0?Math.abs(i-hov):99, dr=Math.max(1.4,Math.min(bw/2-.4,4.2)), stepY=dr*2+2.2, cnt=Math.max(1,Math.floor(bh/stepY));
-    var gcol=i===hov?"#FF3D7F":(near<(small?3:4)?(near<2?"#FF9A3D":"#18D9C9"):"#D6D4CE");
+    var gcol=i===hov?"#FF3D7F":(near<(small?3:4)?(near<2?"#FF9A3D":"#18D9C9"):"#3A3A3A");
     c.fillStyle=gcol;
     for(var q=0;q<cnt;q++){ c.beginPath(); c.arc(x+bw/2, h-dr-q*stepY, dr, 0, 6.283); c.fill(); }
   }
