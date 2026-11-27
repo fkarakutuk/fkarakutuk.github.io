@@ -14,17 +14,21 @@
 @font-face{font-family:"Neutral Face";src:url("fonts/NeutralFace-Bold.woff2") format("woff2");font-weight:700 900;font-display:swap}
 :root{
   /* Layout idea: a bright studio portfolio with one signal colour. Big type, colour-blocked cards, data as decoration you can touch. */
-  --paper:#F7F6F2;
+  --paper:#FAFAF9;
   --card:#FFFFFF;
   --ink:#141414;
   --soft:#5E5E5A;
   --rule:#E3E1DA;
-  --signal:#FF5A1F;
-  --lilac:#E9E4FF;
-  --mint:#DDF3E6;
-  --sky:#DCEBFF;
-  --sun:#FFF0C7;
-  --blush:#FFE2D6;
+  --signal:#FF5B3A;
+  --cyan:#18D9C9;
+  --pink:#FF3D7F;
+  --grad:linear-gradient(115deg,#18D9C9 0%,#FF9A3D 52%,#FF3D7F 100%);
+  --grad-soft:linear-gradient(115deg,#DDFBF7 0%,#FFEBDC 55%,#FFE1EC 100%);
+  --lilac:#F1F1EF;
+  --mint:#DCFAF6;
+  --sky:#E9F7FF;
+  --sun:#FFF0D6;
+  --blush:#FFE4EC;
   --display:"Neutral Face", "Helvetica Neue", Arial, sans-serif;
   --body:"Geist", "Helvetica Neue", Arial, sans-serif;
   --mono:"Neutral Face", "Geist Mono", ui-monospace, monospace;
@@ -68,10 +72,10 @@ p{margin:0}
 /* hero */
 .hero{padding:150px 0 0;position:relative;overflow:hidden}
 .hello{display:inline-flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--rule);border-radius:999px;padding:6px 14px 6px 6px;font-family:var(--mono);font-size:.74rem;letter-spacing:.02em}
-.hello .av{width:28px;height:28px;border-radius:50%;background:var(--signal);color:#fff;display:grid;place-items:center;font:600 .7rem var(--mono)}
+.hello .av{width:28px;height:28px;border-radius:50%;background:var(--grad);color:#fff;display:grid;place-items:center;font:600 .7rem var(--mono)}
 .hello .dot{width:7px;height:7px;border-radius:50%;background:#22A06B;box-shadow:0 0 0 3px rgba(34,160,107,.18)}
 .hero h1{font-size:clamp(2.3rem,6vw,5.6rem);line-height:1.02;margin:28px 0 0;font-weight:700;letter-spacing:0}
-.hero h1 .o{color:var(--signal)}
+.hero h1 .o{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero h1 .chip{display:inline-flex;vertical-align:middle;gap:6px;align-items:center;background:var(--card);border:1px solid var(--rule);border-radius:999px;padding:.08em .22em;height:.82em;margin:0 .05em;transform:translateY(-.06em)}
 .hero h1 .chip img{height:.5em;width:.5em}
 .hero-foot{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:end;margin-top:36px}
@@ -112,13 +116,13 @@ section.s{padding:120px 0}
 .head h2{font-size:clamp(1.8rem,3.6vw,3rem);line-height:1.08;max-width:16em}
 .head p{max-width:27em;color:var(--soft)}
 .kick{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.74rem;color:var(--soft);margin-bottom:16px}
-.kick::before{content:"";width:18px;height:2px;background:var(--signal)}
+.kick::before{content:"";width:22px;height:3px;border-radius:2px;background:var(--grad)}
 
 /* bento about */
 .bento{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
 .b{border-radius:26px;padding:28px;background:var(--card);border:1px solid var(--rule);position:relative;overflow:hidden}
 .b.bio{grid-column:span 7;font-size:1.25rem;line-height:1.5;font-family:var(--body);font-weight:500;letter-spacing:-.01em}
-.b.bio em{font-style:normal;background:var(--sun);padding:0 .2em;border-radius:6px}
+.b.bio em{font-style:normal;background:linear-gradient(transparent 62%,rgba(24,217,201,.35) 62%);padding:0 .1em}
 .b.now{grid-column:span 5;background:var(--ink);color:#fff;display:flex;flex-direction:column;justify-content:space-between;gap:24px}
 .b.now .tagline{color:rgba(255,255,255,.6)}
 .now-logo{height:30px;font-family:var(--display);font-weight:800;font-size:1.9rem;letter-spacing:.02em}
@@ -126,11 +130,12 @@ section.s{padding:120px 0}
 .b.now h3{font-size:1.5rem;font-weight:600}
 .b.stat{grid-column:span 3;display:flex;flex-direction:column;justify-content:space-between;min-height:170px}
 .b.stat .n{font-family:var(--display);font-weight:700;font-size:3.2rem;line-height:1;letter-spacing:0;font-variant-numeric:tabular-nums}
-.b.stat .n sup{color:var(--signal);font-size:.45em;vertical-align:top;margin-left:2px}
-.b.stat:nth-of-type(3){background:var(--lilac);border-color:transparent}
-.b.stat:nth-of-type(4){background:var(--mint);border-color:transparent}
-.b.stat:nth-of-type(5){background:var(--sky);border-color:transparent}
-.b.stat:nth-of-type(6){background:var(--blush);border-color:transparent}
+.b.stat .n sup{color:var(--cyan);font-size:.45em;vertical-align:top;margin-left:2px}
+.b.stat:nth-of-type(3){background:#111;color:#fff;border-color:transparent;background-image:radial-gradient(rgba(255,255,255,.16) 1.2px,transparent 1.3px);background-size:14px 14px}
+.b.stat:nth-of-type(4){background:var(--grad);color:#111;border-color:transparent}
+.b.stat:nth-of-type(4) .n sup{color:#111}
+.b.stat:nth-of-type(5){background:var(--card)}
+.b.stat:nth-of-type(6){background:#111;color:#fff;border-color:transparent}
 @media (max-width:900px){.b.bio,.b.now{grid-column:span 12}.b.stat{grid-column:span 6}}
 
 /* services */
@@ -146,7 +151,7 @@ section.s{padding:120px 0}
 .sv p{color:var(--soft);font-size:.95rem}
 .sv ul{list-style:none;margin:0;padding:0;display:grid;gap:7px;font-size:.92rem}
 .sv li{display:flex;gap:9px}
-.sv li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--signal);margin-top:9px;flex:none}
+.sv li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--grad);margin-top:9px;flex:none}
 .sv .tl{display:flex;gap:8px;margin-top:auto;padding-top:12px;border-top:1px dashed var(--rule)}
 .sv .tl img{height:22px;width:auto;max-width:90px}
 .sv .tl img[src*="adjust"]{height:16px;align-self:center}
@@ -164,6 +169,12 @@ section.s{padding:120px 0}
 .case .go{margin-top:28px;display:inline-flex;align-items:center;gap:10px;font-weight:700;background:var(--ink);color:#fff;padding:13px 18px;border-radius:999px;font-size:.74rem;letter-spacing:.03em;border:0;font-family:var(--mono);cursor:pointer}
 .case .go span{transition:transform .2s}
 .case:hover .go span{transform:translateX(4px)}
+.case.dark{color:#fff}
+.case.dark p{color:rgba(255,255,255,.72)}
+.case.dark .meta span{background:rgba(255,255,255,.12);color:#fff}
+.case.dark .go{background:#fff;color:#111}
+.case.dark{background-image:radial-gradient(rgba(255,255,255,.09) 1.2px,transparent 1.3px)!important;background-size:16px 16px!important}
+.case.dark .art{background:#fff}
 .case .art{background:rgba(255,255,255,.55);border-radius:22px;position:relative;min-height:260px;overflow:hidden}
 .case .art canvas{position:absolute;inset:0;width:100%;height:100%}
 .note{font-family:var(--mono);font-size:.74rem;color:var(--soft);margin-top:18px}
@@ -193,7 +204,7 @@ section.s{padding:120px 0}
 .sbody h4{font-family:var(--mono);font-weight:500;font-size:.74rem;color:var(--soft);margin:30px 0 8px}
 pre.code{background:#141414;color:#EDEBE4;border-radius:16px;padding:18px;overflow-x:auto;font:400 .78rem/1.7 "Geist Mono",ui-monospace,monospace;margin:0}
 pre.code .k{color:#FF9A6E}pre.code .c{color:#8B8A85}
-.outcome{margin-top:28px;background:var(--sun);border-radius:18px;padding:20px 22px}
+.outcome{margin-top:28px;background:var(--grad-soft);border-radius:18px;padding:20px 22px}
 
 
 /* dashboards gallery */
@@ -259,6 +270,22 @@ pre.code .k{color:#FF9A6E}pre.code .c{color:#8B8A85}
 .banner-svg text{font-family:"Neutral Face",sans-serif}
 .feat-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.62rem;background:#141414;color:#fff;padding:5px 9px;border-radius:999px;margin-bottom:12px}
 
+
+.sv.dark{background:#111;color:#fff;background-image:radial-gradient(rgba(255,255,255,.1) 1.2px,transparent 1.3px);background-size:15px 15px}
+.sv.dark p,.sv.dark .num{color:rgba(255,255,255,.65)}
+.sv.dark .tl{border-top-color:rgba(255,255,255,.2)}
+.sv.grad{background:var(--grad)}
+.sv.grad p,.sv.grad .num{color:rgba(17,17,17,.72)}
+.sv.grad li::before{background:#111}
+.sv.grad .tl{border-top-color:rgba(17,17,17,.25)}
+.dots-deco{position:absolute;right:0;top:-34px;width:200px;height:120px;pointer-events:none;opacity:.9}
+.head{position:relative}
+@media (max-width:640px){.dots-deco{width:120px;height:80px;top:-40px}}
+.sphere{position:absolute;right:max(-200px,calc((100vw - var(--max))/2 - 230px));top:150px;width:min(560px,44vw);aspect-ratio:1;pointer-events:none;z-index:0;opacity:.8}
+.hero .wrap{position:relative;z-index:1}
+.tri{position:absolute;pointer-events:none;z-index:0}
+@media (max-width:640px){.sphere{width:300px;right:-110px;top:60px;opacity:.55}}
+
 /* experience */
 .xp{border-top:1px solid var(--ink)}
 .row{border-bottom:1px solid var(--rule)}
@@ -270,7 +297,7 @@ pre.code .k{color:#FF9A6E}pre.code .c{color:#8B8A85}
 .row .when{font-family:var(--mono);font-size:.78rem;color:var(--soft)}
 .row .pm{width:38px;height:38px;border-radius:50%;border:1px solid var(--rule);display:grid;place-items:center;transition:.25s;font-size:1.1rem}
 .row button:hover .pm{background:var(--ink);color:#fff;border-color:var(--ink)}
-.row.open .pm{transform:rotate(45deg);background:var(--signal);color:#fff;border-color:var(--signal)}
+.row.open .pm{transform:rotate(45deg);background:#111;color:#fff;border-color:#111}
 .row .det{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.2,.8,.2,1)}
 .row.open .det{grid-template-rows:1fr}
 .row .det>div{overflow:hidden}
@@ -317,16 +344,18 @@ pre.code .k{color:#FF9A6E}pre.code .c{color:#8B8A85}
 .cred .ini-s{width:22px;height:22px;border-radius:6px;background:#5B2EE5;color:#fff;display:grid;place-items:center;font:700 .58rem var(--display)}
 
 /* contact */
-.contact{background:var(--signal);color:#fff;border-radius:40px;padding:clamp(28px,6vw,80px);display:grid;grid-template-columns:1.1fr 1fr;gap:48px;position:relative;overflow:hidden}
+.contact{background:var(--grad);color:#111;border-radius:40px;padding:clamp(28px,6vw,80px);display:grid;grid-template-columns:1.1fr 1fr;gap:48px;position:relative;overflow:hidden}
 @media (max-width:900px){.contact{grid-template-columns:1fr}}
 .contact h2{font-size:clamp(2rem,4.6vw,3.8rem);line-height:1.04;font-weight:700;letter-spacing:0}
-.contact p{margin-top:20px;font-size:1.1rem;max-width:28em;color:rgba(255,255,255,.9)}
+.contact p{margin-top:20px;font-size:1.1rem;max-width:28em;color:rgba(17,17,17,.8)}
+.contact::before{content:"";position:absolute;right:-60px;top:-60px;width:340px;height:340px;border-radius:50%;background-image:radial-gradient(rgba(17,17,17,.55) 1.6px,transparent 1.7px);background-size:13px 13px;-webkit-mask:radial-gradient(circle,#000 45%,transparent 70%);mask:radial-gradient(circle,#000 45%,transparent 70%);pointer-events:none}
+.contact>*{position:relative}
 .mail{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px;align-items:center}
-.mail code{font:500 1.05rem var(--mono);background:rgba(255,255,255,.16);padding:12px 16px;border-radius:14px;user-select:all}
+.mail code{font:500 1.02rem var(--body);background:rgba(255,255,255,.55);padding:12px 16px;border-radius:14px;user-select:all}
 .mail button{background:var(--ink);color:#fff;border:0;border-radius:14px;padding:13px 16px;font:600 .9rem var(--body);cursor:pointer}
 .soc{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
-.soc a{text-decoration:none;font-size:.9rem;padding:9px 15px;border-radius:999px;border:1px solid rgba(255,255,255,.5)}
-.soc a:hover{background:#fff;color:var(--signal)}
+.soc a{text-decoration:none;font-size:.9rem;padding:9px 15px;border-radius:999px;border:1px solid rgba(17,17,17,.3)}
+.soc a:hover{background:#111;color:#fff;border-color:#111}
 form.f{background:#fff;color:var(--ink);border-radius:28px;padding:26px;display:grid;gap:14px;align-content:start}
 form.f label{display:grid;gap:6px;font-size:.84rem;font-weight:500}
 form.f input,form.f textarea{font:400 1rem var(--body);border:1px solid var(--rule);border-radius:12px;padding:12px 14px;background:var(--paper);color:var(--ink)}
@@ -441,6 +470,7 @@ footer .logo img{width:28px;height:28px}
 </nav>
 
 <header class="hero" id="top">
+  <canvas class="sphere" id="sphere" aria-hidden="true"></canvas>
   <div class="wrap">
     <span class="hello"><span class="av">FK</span><span data-i="hero.hello">Merhaba, ben Furkan</span><span class="dot" aria-hidden="true"></span></span>
     <h1 id="h1"></h1>
@@ -638,6 +668,46 @@ function t(k){return (T[lang]&&T[lang][k])||T.tr[k]||k;}
 function L(o){return (o&&typeof o==="object"&&"tr" in o)?o[lang]:o;}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
 
+
+/* ---------- dot sphere (hero) ---------- */
+(function(){
+  var cv=document.getElementById("sphere"); if(!cv) return;
+  var reduceM=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var P=[], n=900, ga=Math.PI*(3-Math.sqrt(5));
+  for(var i=0;i<n;i++){ var y=1-(i/(n-1))*2, r=Math.sqrt(1-y*y), th=ga*i; P.push([Math.cos(th)*r,y,Math.sin(th)*r]); }
+  var stops=[[24,217,201],[255,154,61],[255,61,127]];
+  function col(t){ t=Math.max(0,Math.min(1,t)); var k=t<.5?0:1, u=t<.5?t*2:(t-.5)*2, a=stops[k], b=stops[k+1]; return [a[0]+(b[0]-a[0])*u,a[1]+(b[1]-a[1])*u,a[2]+(b[2]-a[2])*u]; }
+  var rot=0, tilt=-.35, tx=0, ty=0;
+  window.addEventListener("pointermove",function(e){ tx=(e.clientX/window.innerWidth-.5); ty=(e.clientY/window.innerHeight-.5); },{passive:true});
+  function frame(){
+    var dpr=Math.min(window.devicePixelRatio||1,2), w=cv.clientWidth, h=cv.clientHeight;
+    if(!w){ requestAnimationFrame(frame); return; }
+    if(cv.width!==Math.round(w*dpr)){ cv.width=Math.round(w*dpr); cv.height=Math.round(h*dpr); }
+    var c=cv.getContext("2d"); c.setTransform(dpr,0,0,dpr,0,0); c.clearRect(0,0,w,h);
+    var R=w*.42, cx=w/2, cy=h/2, a=rot+tx*.8, b=tilt+ty*.5, ca=Math.cos(a), sa=Math.sin(a), cb=Math.cos(b), sb=Math.sin(b);
+    for(var i=0;i<n;i++){
+      var p=P[i], x=p[0]*ca+p[2]*sa, z=-p[0]*sa+p[2]*ca, y=p[1]*cb-z*sb; z=p[1]*sb+z*cb;
+      if(z<-.15) continue;
+      var d=(z+1)/2, rr=Math.max(.6,(w/380)*(.7+d*1.9)), cc=col((x+1)/2*.85+(y+1)/2*.15);
+      c.fillStyle="rgba("+(cc[0]|0)+","+(cc[1]|0)+","+(cc[2]|0)+","+(.18+d*.82).toFixed(2)+")";
+      c.beginPath(); c.arc(cx+x*R, cy+y*R, rr, 0, 6.283); c.fill();
+    }
+    if(!reduceM){ rot+=.0026; requestAnimationFrame(frame); }
+  }
+  requestAnimationFrame(frame);
+})();
+/* ---------- scattered dot decorations next to section heads ---------- */
+(function(){
+  var seeds=[3,7,11,5,9,13,17,21];
+  document.querySelectorAll("section.s .head").forEach(function(hd,k){
+    var r=seeds[k%seeds.length]; function rnd(){ r=(r*9301+49297)%233280; return r/233280; }
+    var dots=""; for(var i=0;i<9;i++){ var x=rnd()*190+5, y=rnd()*110+5, rad=[2.5,3.5,5,7,10][Math.floor(rnd()*5)]; dots+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+rad+'" fill="'+(i===2?"url(#dg"+k+")":"#111")+'"/>'; }
+    var el=document.createElement("span"); el.className="dots-deco"; el.setAttribute("aria-hidden","true");
+    el.innerHTML='<svg viewBox="0 0 200 120" width="100%" height="100%"><defs><linearGradient id="dg'+k+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#18D9C9"/><stop offset=".55" stop-color="#FF9A3D"/><stop offset="1" stop-color="#FF3D7F"/></linearGradient></defs>'+dots+'</svg>';
+    hd.appendChild(el);
+  });
+})();
+
 /* ---------- Brands (logo files or typographic wordmark) ---------- */
 var B={
  stablex:{n:"Stablex",logo:"logos/stablex.png"},
@@ -683,8 +753,10 @@ function draw(){
     if(hov>=0){ var d=Math.abs(i-hov); target+= Math.max(0,(small?.26:.32)-d*(small?.07:.06)); }
     cur[idx]+= (target-cur[idx])*.14;
     var bh=Math.max(4,cur[idx]*(h-(small?36:28))), x=i*(bw+gap), y=h-bh;
-    c.fillStyle = i===hov ? "#FF5A1F" : (hov>=0 && Math.abs(i-hov)<(small?3:4) ? "#FFB08F" : "#DEDBD2");
-    var r=Math.min(small?3:4,bw/2); c.beginPath(); c.moveTo(x,h); c.lineTo(x,y+r); c.quadraticCurveTo(x,y,x+r,y); c.lineTo(x+bw-r,y); c.quadraticCurveTo(x+bw,y,x+bw,y+r); c.lineTo(x+bw,h); c.fill();
+    var near=hov>=0?Math.abs(i-hov):99, dr=Math.max(1.4,Math.min(bw/2-.4,4.2)), stepY=dr*2+2.2, cnt=Math.max(1,Math.floor(bh/stepY));
+    var gcol=i===hov?"#FF3D7F":(near<(small?3:4)?(near<2?"#FF9A3D":"#18D9C9"):"#D6D4CE");
+    c.fillStyle=gcol;
+    for(var q=0;q<cnt;q++){ c.beginPath(); c.arc(x+bw/2, h-dr-q*stepY, dr, 0, 6.283); c.fill(); }
   }
   if(hov>=0 && !auto){
     var idx2=Math.floor(hov*N/n), val=Math.round(cur[idx2]*14800+1200), day=new Date(2026,0,1+idx2);
@@ -713,15 +785,15 @@ function renderNow(){ document.getElementById("nowLogo").innerHTML='<img src="lo
 
 /* ---------- Services ---------- */
 var SV=[
- {c:"var(--blush)",t:{tr:"Tracking & tag yönetimi",en:"Tracking & tag management"},p:{tr:"App ve web'de aynı çalışan, bir kez tanımlanmış temiz event'ler.",en:"Clean events, defined once, firing the same on app and web."},
+ {c:"dark",t:{tr:"Tracking & tag yönetimi",en:"Tracking & tag management"},p:{tr:"App ve web'de aynı çalışan, bir kez tanımlanmış temiz event'ler.",en:"Clean events, defined once, firing the same on app and web."},
   l:{tr:["Tracking planı ve event taksonomisi","GTM web & server, custom JavaScript","Firebase / GA4 app ölçümlemesi","Consent Mode kurulumu"],en:["Tracking plan and event taxonomy","GTM web & server, custom JavaScript","Firebase / GA4 app tracking","Consent Mode setup"]},tools:["gtm","ga","firebase"]},
- {c:"var(--lilac)",t:{tr:"App atribüsyonu (MMP)",en:"App attribution (MMP)"},p:{tr:"Her install ve dönüşümün doğru kaynağa yazılması.",en:"Every install and conversion credited to the right source."},
+ {c:"var(--card)",t:{tr:"App atribüsyonu (MMP)",en:"App attribution (MMP)"},p:{tr:"Her install ve dönüşümün doğru kaynağa yazılması.",en:"Every install and conversion credited to the right source."},
   l:{tr:["Adjust SDK, event, deep link, callback","Adjust API ile otomatik raporlama","Meta, Floodlight, Taboola pixel'leri","Offline dönüşüm aktarımı"],en:["Adjust SDK, events, deep links, callbacks","Automated reporting via Adjust API","Meta, Floodlight, Taboola pixels","Offline conversion imports"]},tools:["adjust","meta","googleads"]},
- {c:"var(--sky)",t:{tr:"Veri ambarı & SQL",en:"Data warehouse & SQL"},p:{tr:"Beş farklı export yerine tek doğru kaynak.",en:"One source of truth instead of five exports."},
+ {c:"grad",t:{tr:"Veri ambarı & SQL",en:"Data warehouse & SQL"},p:{tr:"Beş farklı export yerine tek doğru kaynak.",en:"One source of truth instead of five exports."},
   l:{tr:["GA4 / Firebase BigQuery modellemesi","MMP, reklam ve backend verisinin birleşmesi","Veri tutarsızlığı incelemeleri","Python ile otomasyon"],en:["GA4 / Firebase BigQuery modelling","Joining MMP, ads and backend data","Discrepancy investigations","Python automation"]},tools:["bigquery","postgresql","python"]},
- {c:"var(--mint)",t:{tr:"Dashboard & raporlama",en:"Dashboards & reporting"},p:{tr:"Bir soruya cevap veren ve kendini güncelleyen raporlar.",en:"Reports that answer a question and refresh themselves."},
+ {c:"var(--card)",t:{tr:"Dashboard & raporlama",en:"Dashboards & reporting"},p:{tr:"Bir soruya cevap veren ve kendini güncelleyen raporlar.",en:"Reports that answer a question and refresh themselves."},
   l:{tr:["KPI ağaçları ve metrik tanımları","Yönetim ve kanal dashboard'ları","Funnel ve kohort raporları","Anomali alarmları"],en:["KPI trees and metric definitions","Executive and channel dashboards","Funnel and cohort reports","Anomaly alerts"]},tools:["powerbi","qlik","datastudio"]},
- {c:"var(--sun)",t:{tr:"CRO & A/B test",en:"CRO & A/B testing"},p:{tr:"Metriği, eşiği ve sahibi belli hipotezler.",en:"Hypotheses with a metric, a threshold and an owner."},
+ {c:"dark",t:{tr:"CRO & A/B test",en:"CRO & A/B testing"},p:{tr:"Metriği, eşiği ve sahibi belli hipotezler.",en:"Hypotheses with a metric, a threshold and an owner."},
   l:{tr:["Funnel kırılımı ve kök neden analizi","A/B test tasarımı ve okuması","UX ve oturum analizi","Test backlog'u"],en:["Funnel drop-off and root-cause analysis","A/B test design and readouts","UX and session analysis","Test backlog"]},tools:["vwo","hotjar"]},
  {c:"var(--card)",t:{tr:"Denetim & eğitim",en:"Audits & training"},p:{tr:"Ekiplerin kendi verisini okuyabilmesi için.",en:"So teams can read their own data."},
   l:{tr:["Hesap ve tracking denetimleri","GTM, GA4, Adjust, BigQuery eğitimleri","Teknik dokümantasyon","90 günlük analitik yol haritası"],en:["Account and tracking audits","GTM, GA4, Adjust, BigQuery workshops","Technical documentation","90-day analytics roadmaps"]},tools:["ga","gtm","bigquery"]}
@@ -729,20 +801,21 @@ var SV=[
 function renderSvc(){
   document.getElementById("svc").innerHTML=SV.map(function(s,i){
     var icons=(s.tools||[]).map(function(k){return '<img src="logos/tools/'+k+'.svg" alt="">';}).join("")+(s.ini||[]).map(function(x){return '<span style="width:22px;height:22px;border-radius:6px;background:'+x[1]+';color:#fff;font:700 .62rem var(--display);display:grid;place-items:center">'+x[0]+'</span>';}).join("");
-    return '<article class="sv" style="background:'+s.c+';border-color:'+(s.c==="var(--card)"?"var(--rule)":"transparent")+'"><div class="top"><span class="num">0'+(i+1)+'</span></div><h3>'+esc(L(s.t))+'</h3><p>'+esc(L(s.p))+'</p><ul>'+L(s.l).map(function(x){return "<li>"+esc(x)+"</li>";}).join("")+'</ul><div class="tl">'+icons+'</div></article>';
+    var cls=s.c==="dark"?" dark":(s.c==="grad"?" grad":""); var bgc=(s.c==="dark"||s.c==="grad")?"":"background:"+s.c+";";
+    return '<article class="sv'+cls+'" style="'+bgc+'border-color:'+(s.c==="var(--card)"?"var(--rule)":"transparent")+'"><div class="top"><span class="num">0'+(i+1)+'</span></div><h3>'+esc(L(s.t))+'</h3><p>'+esc(L(s.p))+'</p><ul>'+L(s.l).map(function(x){return "<li>"+esc(x)+"</li>";}).join("")+'</ul><div class="tl">'+icons+'</div></article>';
   }).join("");
 }
 
 /* ---------- Cases ---------- */
 var CASES=[
- {bg:"#FFE38A",seed:21,art:"vision",rich:"vision",featured:true,type:{tr:"Görsel AI × performans verisi",en:"Vision AI × performance data"},sector:{tr:"Pegasus · Havayolu",en:"Pegasus · Airline"},
+ {bg:"var(--grad)",seed:21,art:"vision",rich:"vision",featured:true,type:{tr:"Görsel AI × performans verisi",en:"Vision AI × performance data"},sector:{tr:"Pegasus · Havayolu",en:"Pegasus · Airline"},
   title:{tr:"Bir banner'ı tıklanır yapan ne? 1.000 reklam görselini Google Vision'a okuttuk",en:"What makes a banner click? We had Google Vision read 1,000 ad creatives"},
   abs:{tr:"Pegasus'un reklam banner'larını Google Vision AI ile etiketleyip CTR ve dönüşüm verisiyle eşledik. Sonuç, markanın kreatif brief'lerini değiştirdi.",en:"We tagged Pegasus ad banners with Google Vision AI and matched the tags with CTR and conversion data. The result changed the brand's creative briefs."},
   role:{tr:"Lead Data Analyst (Hype)",en:"Lead Data Analyst (Hype)"},stack:"Google Vision AI · Python · Google Sheets",
   intro:{tr:"Pegasus her dönem yüzlerce banner yayınlıyordu ve hangisinin neden daha iyi çalıştığına dair kreatif kararlar çoğunlukla sezgiyle veriliyordu. Soru basitti: bir görselin içindeki öğeler, yani renk, insan, hava durumu ve CTA metni, performansı ölçülebilir şekilde etkiliyor mu?",en:"Pegasus ran hundreds of banners every season, and creative decisions about what works were mostly made on instinct. The question was simple: do the elements inside an image, such as colour, people, weather and CTA copy, measurably affect performance?"},
   steps:{tr:[],en:[]},
   outcome:{tr:"Pegasus kreatif brief'lerini bu bulgulara göre güncelledi: yeni banner'larda doğrudan aksiyon çağrısı yapan CTA, sarı tonlar, gülümseyen insanlar ve güneşli sahneler öne çıkarıldı.",en:"Pegasus updated its creative briefs around these findings: new banners leaned into direct CTAs, yellow tones, smiling people and sunny scenes."}},
- {bg:"var(--lilac)",seed:3,type:{tr:"Kök neden analizi",en:"Root-cause analysis"},sector:{tr:"Spor giyim e-ticaret",en:"Sportswear e-commerce"},
+ {bg:"#111",dark:true,seed:3,type:{tr:"Kök neden analizi",en:"Root-cause analysis"},sector:{tr:"Spor giyim e-ticaret",en:"Sportswear e-commerce"},
   title:{tr:"Tek platformda, tek kanalda saklanan dönüşüm düşüşünü bulmak",en:"Finding a conversion drop hiding in one channel on one platform"},
   abs:{tr:"Yavaş düşen dönüşüm oranını toplamdan tek bir kırılma gününe kadar izleyip olası nedenleri sıraladım.",en:"I traced a slowly falling conversion rate from the total down to a single break date and ranked the likely causes."},
   role:{tr:"Analist",en:"Analyst"},stack:"BigQuery · SQL · Looker Studio",
@@ -750,14 +823,14 @@ var CASES=[
   steps:{tr:[["Karşılaştırmadan önce normalize et","Aylık toplamları gün sayısına göre düzelttim; ciro düşüşünün bir kısmı sadece kısa bir aydı."],["Cihaza göre kır","Web sabitti; düşüşün tamamı app tarafındaydı."],["App'i kanala göre kır","Değişimi tek bir kanal (CRM push) açıklıyordu."],["Haftalığa, sonra günlüğe in","Değişim trend değil kırılmaydı: tüm CRM kampanyaları aynı gün düştü."],["Hipotezleri sırala","Sipariş ve sepet aynıyken oturum artmıştı; önce sürüm sonrası oturum sayımı değişikliği, sonra kırık deep link."]],en:[["Normalise before comparing","Adjusted for days in month; part of the revenue drop was just a shorter month."],["Split by device","Web held steady; the decline was all on the app."],["Split app by channel","One owned channel (CRM push) explained the change."],["Go weekly, then daily","A step, not a trend: every CRM campaign broke on the same day."],["Rank hypotheses","Orders and basket were flat while sessions rose: first a session-counting change after a release, then a broken deep link."]]},
   code:'<span class="c">-- Kırılma etrafında günlük dönüşüm</span>\n<span class="k">SELECT</span> date,\n  <span class="k">SUM</span>(sessions) <span class="k">AS</span> sessions,\n  <span class="k">SUM</span>(orders) <span class="k">AS</span> orders,\n  <span class="k">ROUND</span>(100 * <span class="k">SUM</span>(orders) / <span class="k">SUM</span>(sessions), 2) <span class="k">AS</span> cvr_pct\n<span class="k">FROM</span> `project.dataset.daily_performance`\n<span class="k">WHERE</span> device = \'App\' <span class="k">AND</span> channel = \'CRM\'\n  <span class="k">AND</span> date <span class="k">BETWEEN</span> @start <span class="k">AND</span> @end\n<span class="k">GROUP BY</span> date <span class="k">ORDER BY</span> date;',
   outcome:{tr:"P0–P2 önceliklendirilmiş aksiyon planı: sürüm notlarıyla teşhisi doğrula, app × CRM dönüşümüne alarm kur, teşhise göre oturum tanımını ya da deep link'i düzelt.",en:"A P0–P2 action plan: confirm with release notes, alert on app × CRM conversion, then fix the session definition or the deep link."}},
- {bg:"var(--sky)",seed:7,type:{tr:"Tracking denetimi & CRO",en:"Tracking audit & CRO"},sector:{tr:"Havayolu",en:"Airline"},
+ {bg:"var(--lilac)",seed:7,type:{tr:"Tracking denetimi & CRO",en:"Tracking audit & CRO"},sector:{tr:"Havayolu",en:"Airline"},
   title:{tr:"Bir rezervasyon akışını uçtan uca debug edip test hipotezlerine çevirmek",en:"Debugging a booking flow end to end and turning friction into tests"},
   abs:{tr:"GA4 e-ticaret kurulumunun event bazında denetimi; düzeltmeler, eksik event'ler ve üç A/B test tasarımı.",en:"An event-by-event audit of a GA4 e-commerce setup, with fixes, missing events and three A/B test designs."},
   role:{tr:"Analitik & CRO",en:"Analytics & CRO"},stack:"GA4 · GTM · Looker Studio",
   intro:{tr:"Funnel ölçülüyordu ama verinin dönüşüm çalışmaları için güvenilir olup olmadığından kimse emin değildi. Akışı kullanıcı gibi yürüyüp her event ve parametreyi kontrol ettim.",en:"The funnel was tracked but nobody trusted it for conversion work. I walked the flow as a user and checked every event and parameter."},
   steps:{tr:[["Neyin tetiklendiğini haritala","Promosyon görüntülemeden satın almaya tüm event'ler ve user / item scope boyutlar."],["Hatalıları işaretle","Promosyon event'i her slaytta tekrar gidiyordu; liste event'i seçimden sonra tetikleniyor, CTR'ı bozuyordu."],["Eksikleri tamamla","Ek hizmetler, menü tıklamaları, SSS araması ve giriş, kayıt, ödeme hata event'leri."],["Modeli anlat","Event / session / first-user source farkı ve Consent Mode için ekip dokümanı."],["Testleri tasarla","Ana metrik, adım geçişi ve anlamlılık eşiği tanımlı üç hipotez."]],en:[["Map what fires","Every event from promotion view to purchase, plus user- and item-scoped dimensions."],["Flag what's wrong","Promotion views fired on every slide; the list event fired after selection, breaking CTR."],["Fill the gaps","Ancillaries, menu clicks, FAQ search and login, sign-up and payment failure events."],["Explain the model","Team doc on event vs session vs first-user source, and Consent Mode."],["Design tests","Three hypotheses with a primary metric, step conversion and a significance threshold."]]},
   outcome:{tr:"Güvenilir bir funnel referansı, geliştiriciler için öncelikli düzeltme listesi ve CRO aracına hazır test listesi.",en:"A trusted funnel baseline, a prioritised fix list and a test backlog ready for the CRO tool."}},
- {bg:"var(--mint)",seed:11,type:{tr:"Atribüsyon altyapısı",en:"Attribution stack"},sector:{tr:"Regüle fintech (kripto)",en:"Regulated fintech (crypto)"},
+ {bg:"#111",dark:true,seed:11,type:{tr:"Atribüsyon altyapısı",en:"Attribution stack"},sector:{tr:"Regüle fintech (kripto)",en:"Regulated fintech (crypto)"},
   title:{tr:"Pazarlama, ürün ve yönetim için tek bir atribüsyon ve raporlama altyapısı",en:"One attribution and reporting stack for marketing, product and leadership"},
   abs:{tr:"Adjust, GA4, Firebase, BigQuery ve Meta Ads API'nin tek bir modelde birleşmesi.",en:"Adjust, GA4, Firebase, BigQuery and the Meta Ads API joined into one model."},
   role:{tr:"Marketing Data Analytics Manager",en:"Marketing Data Analytics Manager"},stack:"Adjust · BigQuery · Qlik Sense · Power BI",
@@ -771,14 +844,14 @@ var CASES=[
   intro:{tr:"Ekip CRO yapmak istiyordu ama hangi ürün özelliklerinin satın almayı etkilediğini bilmiyordu. İş, neyin ölçüleceğiyle başladı.",en:"The team wanted CRO but couldn't say which product attributes drive purchase. The work started with what to measure."},
   steps:{tr:[["Ürün bağlamı ekle","Puan, yorum sayısı, stok, indirim ve fotoğraf sayısı için ürün scope metrikler."],["Niyeti ölç","Ürün detay tıklaması, checkout adım süreleri, menü ve story tıklamaları."],["Funnel'ı oku","En büyük kayıp sepetten ödemeye geçişte; ayrı bir sepet sayfası önerildi."],["Çapraz satışı bul","Segmentler hangi kategorilerin birlikte alındığını gösterdi."],["Hataları yakala","Görülmeden sayılan banner gösterimleri, her tuşta tetiklenen arama event'leri."]],en:[["Add product context","Product-scoped metrics for rating, reviews, stock, discount and photo count."],["Measure intent","Detail clicks, checkout step timing, navigation and story clicks."],["Read the funnel","Biggest drop at cart to checkout; recommended a full cart page."],["Find cross-sell","Segments showed which categories buyers combine."],["Catch bugs","Banner impressions counted unseen, search events firing on every keystroke."]]},
   outcome:{tr:"CRO'yu fikirden test edilebilir sorulara taşıyan öncelikli bir ölçümleme listesi.",en:"A prioritised measurement backlog that turned CRO opinions into testable questions."}},
- {bg:"var(--sun)",seed:9,type:{tr:"90 günlük yol haritası",en:"90-day roadmap"},sector:{tr:"Mobilite pazaryeri",en:"Mobility marketplace"},
+ {bg:"#111",dark:true,seed:9,type:{tr:"90 günlük yol haritası",en:"90-day roadmap"},sector:{tr:"Mobilite pazaryeri",en:"Mobility marketplace"},
   title:{tr:"Global bir web analitiği fonksiyonunun ilk 90 günü",en:"The first 90 days of a global web analytics function"},
   abs:{tr:"Offline dönüşüm, full-funnel yolculuk, GA4 geçişi, app ölçümlemesi ve hesap denetimleri.",en:"Offline conversions, full-funnel journeys, GA4 migration, app tracking and account audits."},
   role:{tr:"Global Web Analist",en:"Global Web Analyst"},stack:"GA4 · BigQuery · GTM · Power BI",
   intro:{tr:"Türkiye ve Pakistan'da çalışan bir ikinci el araç pazaryeri, mühendislik yükünü artırmadan online ilgiyi offline satışa bağlamak istiyordu.",en:"A used-car marketplace in Türkiye and Pakistan wanted to link online interest to offline sales without adding load on engineering."},
   steps:{tr:[["Teknik bağımlılığı azalt","Rutin tracking değişiklikleri GTM'e taşındı."],["Döngüyü kapat","Offline dönüşüm aktarımıyla lead'ler satışa bağlandı."],["Yolculuğun tamamını gör","İlk ziyaretten teslimata full-funnel raporlar."],["Altyapıyı modernleştir","GA4 geçişi, BigQuery export, app ölçümlemesi."],["Dokümante et","Analitik ve IT arasında ortak teknik dokümantasyon."]],en:[["Reduce dependency","Routine tracking changes moved into GTM."],["Close the loop","Offline conversion imports tied leads to sales."],["See the whole journey","Full-funnel reports from first visit to handover."],["Modernise","GA4 migration, BigQuery export, app tracking."],["Document","Shared technical docs between analytics and IT."]]},
   outcome:{tr:"Analitik ve IT'nin birlikte yürüttüğü ortak bir yol haritası.",en:"A shared roadmap analytics and IT could execute together."}},
- {bg:"#ECEAE3",seed:13,type:{tr:"Eğitim",en:"Training"},sector:{tr:"Ajans · çoklu müşteri",en:"Agency · multiple clients"},
+ {bg:"var(--mint)",seed:13,type:{tr:"Eğitim",en:"Training"},sector:{tr:"Ajans · çoklu müşteri",en:"Agency · multiple clients"},
   title:{tr:"Pazarlama ekiplerinin kendi verisini okumasını sağlayan eğitimler",en:"Workshops that let marketing teams read their own data"},
   abs:{tr:"GTM, GA4, Adjust ve BigQuery üzerine temelden ileri SQL'e uygulamalı eğitimler.",en:"Hands-on courses on GTM, GA4, Adjust and BigQuery, from basics to advanced SQL."},
   role:{tr:"Lead Data Analyst · eğitmen",en:"Lead Data Analyst · trainer"},stack:"GTM · GA4 · Adjust · BigQuery",
@@ -799,16 +872,16 @@ function glyph(cv,seed,kind){
     for(var i=0;i<n;i++){v+=(rnd()-.5)*.08; if(i===brk) v-=.24; v=Math.max(.15,Math.min(.85,v)); pts.push([pad+i*(w-2*pad)/(n-1), pad+(1-v)*(h-2*pad)]);}
     c.beginPath(); pts.forEach(function(p,i){i?c.lineTo(p[0],p[1]):c.moveTo(p[0],p[1]);}); c.lineTo(pts[n-1][0],h-pad); c.lineTo(pts[0][0],h-pad); c.closePath(); c.fillStyle="rgba(20,20,20,.07)"; c.fill();
     c.beginPath(); pts.forEach(function(p,i){i?c.lineTo(p[0],p[1]):c.moveTo(p[0],p[1]);}); c.strokeStyle="#141414"; c.lineWidth=2.5; c.lineJoin="round"; c.stroke();
-    c.setLineDash([4,5]); c.strokeStyle="#FF5A1F"; c.lineWidth=1.5; c.beginPath(); c.moveTo(pts[brk][0],pad-6); c.lineTo(pts[brk][0],h-pad); c.stroke(); c.setLineDash([]);
-    c.fillStyle="#FF5A1F"; c.beginPath(); c.arc(pts[brk][0],pts[brk][1],6,0,7); c.fill();
+    c.setLineDash([4,5]); c.strokeStyle="#FF3D7F"; c.lineWidth=1.5; c.beginPath(); c.moveTo(pts[brk][0],pad-6); c.lineTo(pts[brk][0],h-pad); c.stroke(); c.setLineDash([]);
+    c.fillStyle="#FF3D7F"; c.beginPath(); c.arc(pts[brk][0],pts[brk][1],6,0,7); c.fill();
   } else if(kind%3===1){ // funnel bars
     var vals=[1,.72,.48,.41,.22], bh=(h-2*pad)/vals.length-10;
-    vals.forEach(function(v,i){ var y=pad+i*(bh+10), bw=(w-2*pad)*v; c.fillStyle= i===3? "#FF5A1F":"#141414"; c.globalAlpha= i===3?1:.85-(i*.12); c.beginPath(); c.roundRect? c.roundRect(pad,y,bw,bh,8):c.rect(pad,y,bw,bh); c.fill(); c.globalAlpha=1; });
+    vals.forEach(function(v,i){ var y=pad+i*(bh+10), bw=(w-2*pad)*v; c.fillStyle= i===3? "#FF3D7F":"#141414"; c.globalAlpha= i===3?1:.85-(i*.12); c.beginPath(); c.roundRect? c.roundRect(pad,y,bw,bh,8):c.rect(pad,y,bw,bh); c.fill(); c.globalAlpha=1; });
   } else { // nodes pipeline
     var nodes=[[.15,.3],[.15,.7],[.5,.5],[.85,.25],[.85,.75]];
     c.strokeStyle="#141414"; c.lineWidth=2;
     [[0,2],[1,2],[2,3],[2,4]].forEach(function(e){var a=nodes[e[0]],b=nodes[e[1]]; c.beginPath(); c.moveTo(a[0]*w,a[1]*h); c.bezierCurveTo((a[0]+b[0])/2*w,a[1]*h,(a[0]+b[0])/2*w,b[1]*h,b[0]*w,b[1]*h); c.stroke();});
-    nodes.forEach(function(n,i){ c.fillStyle= i===2?"#FF5A1F":"#fff"; c.beginPath(); c.arc(n[0]*w,n[1]*h,i===2?22:15,0,7); c.fill(); c.stroke(); });
+    nodes.forEach(function(n,i){ c.fillStyle= i===2?"#FF3D7F":"#fff"; c.beginPath(); c.arc(n[0]*w,n[1]*h,i===2?22:15,0,7); c.fill(); c.stroke(); });
   }
 }
 
@@ -823,8 +896,8 @@ function visionArt(cv){
     c.fillStyle= hot[i]?"#FFC629":pal[(i*7)%5]; c.beginPath(); c.roundRect?c.roundRect(x,y,bw,bh,6):c.rect(x,y,bw,bh); c.fill();
     if(hot[i]){ c.fillStyle="#141414"; c.beginPath(); c.arc(x+bw*.3,y+bh*.45,Math.min(bw,bh)*.16,0,7); c.fill();
       c.strokeStyle="#141414"; c.lineWidth=2; c.beginPath(); c.arc(x+bw*.3,y+bh*.45,Math.min(bw,bh)*.09,.15*Math.PI,.85*Math.PI); c.strokeStyle="#FFC629"; c.stroke();
-      c.fillStyle="#FF5A1F"; c.beginPath(); c.roundRect?c.roundRect(x+bw*.55,y+bh*.62,bw*.35,bh*.2,4):c.rect(x+bw*.55,y+bh*.62,bw*.35,bh*.2); c.fill();
-      c.strokeStyle="#FF5A1F"; c.lineWidth=2.5; c.strokeRect(x-3,y-3,bw+6,bh+6); }
+      c.fillStyle="#FF3D7F"; c.beginPath(); c.roundRect?c.roundRect(x+bw*.55,y+bh*.62,bw*.35,bh*.2,4):c.rect(x+bw*.55,y+bh*.62,bw*.35,bh*.2); c.fill();
+      c.strokeStyle="#FF3D7F"; c.lineWidth=2.5; c.strokeRect(x-3,y-3,bw+6,bh+6); }
   }
 }
 var VF={cta:true,yellow:true,smile:true,sun:true};
@@ -874,7 +947,7 @@ function richVision(c){
 function renderCases(){
   var st=document.getElementById("stack");
   st.innerHTML=CASES.map(function(c,i){
-    return '<article class="case" tabindex="0" role="button" data-k="'+i+'" style="background:'+c.bg+';top:'+(100+i*16)+'px" aria-label="'+esc(L(c.title))+'"><div><div class="meta">'+(c.featured?'<span style="background:#141414;color:#fff">★ '+(lang==="en"?"Featured":"Öne çıkan")+'</span>':'')+'<span class="idx">0'+(i+1)+'</span><span>'+esc(L(c.type))+'</span><span>'+esc(L(c.sector))+'</span></div><h3>'+esc(L(c.title))+'</h3><p>'+esc(L(c.abs))+'</p><span class="go">'+t("open")+' <span>→</span></span></div><div class="art"><canvas aria-hidden="true"></canvas></div></article>';
+    return '<article class="case'+(c.dark?' dark':'')+'" tabindex="0" role="button" data-k="'+i+'" style="background:'+c.bg+';top:'+(100+i*16)+'px" aria-label="'+esc(L(c.title))+'"><div><div class="meta">'+(c.featured?'<span style="background:#141414;color:#fff">★ '+(lang==="en"?"Featured":"Öne çıkan")+'</span>':'')+'<span class="idx">0'+(i+1)+'</span><span>'+esc(L(c.type))+'</span><span>'+esc(L(c.sector))+'</span></div><h3>'+esc(L(c.title))+'</h3><p>'+esc(L(c.abs))+'</p><span class="go">'+t("open")+' <span>→</span></span></div><div class="art"><canvas aria-hidden="true"></canvas></div></article>';
   }).join("");
   st.querySelectorAll(".case").forEach(function(el){
     var k=+el.getAttribute("data-k");
