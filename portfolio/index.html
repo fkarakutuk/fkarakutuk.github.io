@@ -459,6 +459,55 @@ form.f input,form.f textarea{background:#E9E8E4}
 .lang button[aria-pressed="true"]{background:#fff;color:#111}
 .right .pill{background:var(--grad);color:#111}
 .right .pill:hover{background:#fff;color:#111}
+
+/* ===== glassmorphism ===== */
+section.s:not(.dark-sec){background:
+  radial-gradient(520px 380px at 88% 12%, rgba(24,217,201,.22), transparent 70%),
+  radial-gradient(520px 420px at 6% 78%, rgba(255,61,127,.16), transparent 70%),
+  radial-gradient(420px 320px at 55% 55%, rgba(255,154,61,.12), transparent 70%),
+  #E9E8E4}
+.dark-sec{background:
+  radial-gradient(560px 420px at 85% 18%, rgba(24,217,201,.20), transparent 70%),
+  radial-gradient(560px 460px at 8% 85%, rgba(255,61,127,.20), transparent 70%),
+  radial-gradient(420px 320px at 50% 50%, rgba(255,154,61,.10), transparent 70%),
+  #0A0A0A}
+.b:not(.now):not(.stat),.b.stat:nth-of-type(5),.tile,.tool,.cred,.row,
+#work .case:not(.dark):not(:first-child),
+section.s:not(.dark-sec) .sv:not(.dark):not(.grad){
+  background-color:rgba(255,255,255,.42)!important;
+  border:1px solid rgba(255,255,255,.75)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 24px 48px -32px rgba(20,20,20,.35)}
+.row{border-radius:18px;margin-bottom:10px;padding:0 14px}
+.xp{border-top:0}
+.b.now,.b.stat:nth-of-type(3),.b.stat:nth-of-type(6),.case.dark,.sv.dark{
+  background-color:rgba(14,14,14,.72)!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+  -webkit-backdrop-filter:blur(20px) saturate(1.3);backdrop-filter:blur(20px) saturate(1.3);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 24px 48px -30px rgba(0,0,0,.6)}
+.dark-sec .sv:not(.dark):not(.grad),.dark-sec .gi{
+  background-color:rgba(255,255,255,.07)!important;color:#fff!important;
+  border:1px solid rgba(255,255,255,.14)!important;
+  -webkit-backdrop-filter:blur(20px) saturate(1.3);backdrop-filter:blur(20px) saturate(1.3);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 30px 60px -40px rgba(0,0,0,.8)}
+.dark-sec .sv:not(.dark):not(.grad) p,.dark-sec .sv:not(.dark):not(.grad) .num,.dark-sec .gi p{color:rgba(255,255,255,.62)}
+.dark-sec .sv:not(.dark):not(.grad) .tl{border-top-color:rgba(255,255,255,.18)}
+.dark-sec .sv .tl img[src*="adjust"],.dark-sec .sv .tl img[src*="insider"]{filter:invert(1)}
+.dark-sec .gi .ph{background:rgba(255,255,255,.04);border-bottom-color:rgba(255,255,255,.1)}
+.dark-sec .gi .chips span{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16);color:#fff}
+.dark-sec .sv.dark{background-color:rgba(255,255,255,.03)!important}
+.b.stat:nth-of-type(4),.sv.grad,#work .case:first-child{box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 30px 60px -36px rgba(255,61,127,.45);border:1px solid rgba(255,255,255,.4)!important}
+.contact{box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+form.f{background:rgba(255,255,255,.1)!important;color:#fff;border:1px solid rgba(255,255,255,.16);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+form.f label,form.f span{color:#fff}
+form.f input,form.f textarea{background:rgba(255,255,255,.08)!important;border-color:rgba(255,255,255,.18);color:#fff}
+form.f input:focus,form.f textarea:focus{border-color:#fff;background:rgba(255,255,255,.14)!important}
+form.f .need button{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.2);color:#fff}
+form.f .need button[aria-pressed="true"]{background:#fff;color:#111}
+form.f .pill{background:var(--grad);color:#111}
+.tile .hv{background:rgba(14,14,14,.82);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+
+section.s:not(.dark-sec) .b.now,section.s:not(.dark-sec) .b.stat:nth-of-type(3),section.s:not(.dark-sec) .b.stat:nth-of-type(6),section.s:not(.dark-sec) .case.dark{background-color:rgba(12,12,12,.9)!important}
 /* ---------- mobile ---------- */
 @media (max-width:640px){
   body{font-size:16px}
