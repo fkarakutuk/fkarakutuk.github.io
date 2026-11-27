@@ -510,6 +510,15 @@ form.f .pill{background:var(--grad);color:#111}
 section.s:not(.dark-sec) .b.now,section.s:not(.dark-sec) .b.stat:nth-of-type(3),section.s:not(.dark-sec) .b.stat:nth-of-type(6),section.s:not(.dark-sec) .case.dark{background-color:rgba(12,12,12,.9)!important}
 
 .gi .ph .kind{left:auto;right:12px;top:12px;background:rgba(10,10,10,.78)!important;color:#fff!important;border:1px solid rgba(255,255,255,.22);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);padding:5px 11px;z-index:2;box-shadow:0 6px 16px -8px rgba(0,0,0,.6)}
+
+/* analytics line chart */
+.hero .chart{height:230px;margin-top:48px;border-top:0;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:14px 16px 6px;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.hero .chart canvas{height:100%}
+.hero .chart-label{top:14px;right:18px;bottom:auto;left:auto}
+.hero .readout{background:rgba(255,255,255,.95);color:#111;text-transform:none;letter-spacing:0;font-family:var(--body);font-size:var(--fs-small);padding:6px 10px;border-radius:10px;box-shadow:0 10px 24px -12px rgba(0,0,0,.6);transition:opacity .15s}
+.hero .readout b{font-weight:700;color:#111}
+.hero{padding-bottom:56px}
+@media (max-width:640px){.hero .chart{height:190px;padding:12px 10px 4px;margin-top:32px}.hero .chart canvas{height:100%}.hero .chart-label{position:static;display:block;margin-top:8px}.hero{padding-bottom:36px}}
 /* ---------- mobile ---------- */
 @media (max-width:640px){
   body{font-size:16px}
@@ -860,7 +869,7 @@ var T={tr:{
 "hero.hello":"Merhaba, ben Furkan",
 "hero.h1":'Verinin <span class="o">dağınık</span> olduğu yerde <span class="chip"><img src="logos/tools/ga.svg" alt=""><img src="logos/tools/gtm.svg" alt=""><img src="logos/tools/bigquery.svg" alt=""></span> düzen kurarım.',
 "hero.lede":"İstanbul'da <b>Web &amp; App Analytics Specialist</b> olarak çalışıyorum. Tracking kurar, MMP ve atribüsyonu bağlar, ham veriyi BigQuery'de modelleyip <em>ekiplerin gerçekten kullandığı raporlara</em> çeviririm.",
-"hero.c1":"İşlerime bak","hero.c2":"Bir proje konuşalım","hero.chart":"simüle veri · imleci gezdirin","hero.chartm":"simüle veri · dokunun ya da parmağınızı kaydırın",
+"hero.c1":"İşlerime bak","hero.c2":"Bir proje konuşalım","hero.chart":"simüle veri · incelemek için üzerine gelin","hero.chartm":"simüle veri · incelemek için dokunun",
 "ab.k":"Hakkımda","ab.t":"Veriyi önce güvenilir, sonra kullanışlı yaparım.",
 "ab.bio":"8 yılı aşkın süredir fintech, perakende, mobilite ve ajans tarafında çalışıyorum. İşim, bir kullanıcının ilk tıklamasından satın almasına kadar her adımın <em>doğru ölçülmesi</em> ve bu verinin pazarlama, ürün ve yönetim için <em>aynı dili konuşması</em>. Rakamlar tutmadığında beni ararlar; genelde sorun iki aracın arasındadır.",
 "ab.now":"ŞU AN","ab.nowd":"Kripto varlık alım-satım platformu · İstanbul · Türkiye pazarı",
@@ -882,7 +891,7 @@ var T={tr:{
 "hero.hello":"Hi, I'm Furkan",
 "hero.h1":'I bring order where <span class="chip"><img src="logos/tools/ga.svg" alt=""><img src="logos/tools/gtm.svg" alt=""><img src="logos/tools/bigquery.svg" alt=""></span> data gets <span class="o">messy</span>.',
 "hero.lede":"I'm a <b>Web &amp; App Analytics Specialist</b> in Istanbul. I set up tracking, connect MMP and attribution, model raw data in BigQuery and turn it into <em>reports teams actually use</em>.",
-"hero.c1":"See my work","hero.c2":"Let's talk about a project","hero.chart":"simulated data · move your cursor","hero.chartm":"simulated data · tap or drag across the bars",
+"hero.c1":"See my work","hero.c2":"Let's talk about a project","hero.chart":"simulated data · hover to inspect","hero.chartm":"simulated data · tap or drag to inspect",
 "ab.k":"About","ab.t":"First I make data trustworthy. Then I make it useful.",
 "ab.bio":"For 8+ years I've worked across fintech, retail, mobility and agency teams. My job is making sure every step from a user's first tap to their purchase is <em>measured correctly</em>, and that marketing, product and leadership <em>read the same numbers</em>. People call me when the numbers don't match; usually the problem sits between two tools.",
 "ab.now":"NOW","ab.nowd":"Crypto-asset trading platform · Istanbul · Türkiye market",
@@ -974,34 +983,61 @@ var cv=document.getElementById("chart"), box=document.getElementById("chartBox")
 var N=96, base=[], mouseX=-1, cur=[];
 (function(){ var v=.45; for(var i=0;i<N;i++){ v+= (Math.sin(i*.35)*.04)+(Math.random()-.5)*.08; v=Math.max(.18,Math.min(.8,v)); var wk=(i%7===5||i%7===6)?.78:1; base.push(v*wk); cur.push(v*wk);} })();
 var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches, tick=0;
-var touchMode=window.matchMedia("(hover: none)").matches, idleT=null, lastTouch=0;
+var touchMode=window.matchMedia("(hover: none)").matches, idleT=null, lastTouch=0, prog=reduce?1:0;
+var D=[], PV=[];
+(function(){ var r=7; function rnd(){r=(r*9301+49297)%233280;return r/233280;}
+  for(var i=0;i<N;i++){ var wd=i%7, season=(wd===5||wd===6)?.8:1, trend=1+i/N*.35, camp=(i>58&&i<66)?1.25:1;
+    D.push(Math.round(8200*season*trend*camp*(.92+rnd()*.16)));
+    PV.push(Math.round(8200*season*(1+i/N*.12)*(.9+rnd()*.14)*.88)); } })();
+function niceMax(v){ var m=Math.pow(10,Math.floor(Math.log10(v))); return Math.ceil(v/m/ .5)*m*.5; }
 function draw(){
   var dpr=Math.min(window.devicePixelRatio||1,2), w=box.clientWidth, h=box.clientHeight;
   if(!w){ requestAnimationFrame(draw); return; }
   if(cv.width!==Math.round(w*dpr)){cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr);}
   var c=cv.getContext("2d"); c.setTransform(dpr,0,0,dpr,0,0); c.clearRect(0,0,w,h);
-  var small=w<640, n=small?32:N, gap=small?3:4, bw=(w-gap*(n-1))/n, hov=-1, auto=false;
-  if(mouseX>=0) hov=Math.min(n-1,Math.max(0,Math.floor(mouseX/(bw+gap))));
-  else if(touchMode && !reduce && Date.now()-lastTouch>2500){ hov=Math.floor((tick/9)%(n+12))-6; auto=true; if(hov<0||hov>=n) hov=-1; }
-  for(var i=0;i<n;i++){
-    var idx=Math.floor(i*N/n);
-    var target=base[idx]+(reduce?0:Math.sin(tick*.02+i*.25)*.03);
-    if(hov>=0){ var d=Math.abs(i-hov); target+= Math.max(0,(small?.26:.32)-d*(small?.07:.06)); }
-    cur[idx]+= (target-cur[idx])*.14;
-    var bh=Math.max(4,cur[idx]*(h-(small?36:28))), x=i*(bw+gap), y=h-bh;
-    var near=hov>=0?Math.abs(i-hov):99, dr=Math.max(1.4,Math.min(bw/2-.4,4.2)), stepY=dr*2+2.2, cnt=Math.max(1,Math.floor(bh/stepY));
-    var gcol=i===hov?"#FF3D7F":(near<(small?3:4)?(near<2?"#FF9A3D":"#18D9C9"):"#3A3A3A");
-    c.fillStyle=gcol;
-    for(var q=0;q<cnt;q++){ c.beginPath(); c.arc(x+bw/2, h-dr-q*stepY, dr, 0, 6.283); c.fill(); }
-  }
-  if(hov>=0 && !auto){
-    var idx2=Math.floor(hov*N/n), val=Math.round(cur[idx2]*14800+1200), day=new Date(2026,0,1+idx2);
-    ro.textContent=day.toLocaleDateString(lang==="tr"?"tr-TR":"en-GB",{day:"numeric",month:"short"})+" · "+val.toLocaleString(lang==="tr"?"tr-TR":"en-GB")+" "+t("session");
-    var half=(ro.offsetWidth||140)/2, left=Math.min(w-half,Math.max(half,hov*(bw+gap)+bw/2));
-    ro.style.left=left+"px"; ro.style.opacity=1;
+  var small=w<640, padL=small?34:44, padR=6, padT=34, padB=24, cw=w-padL-padR, ch=h-padT-padB;
+  var maxV=niceMax(Math.max.apply(null,D.concat(PV))*1.05), loc=lang==="tr"?"tr-TR":"en-GB";
+  var X=function(i){return padL+i*cw/(N-1);}, Y=function(v){return padT+ch-(v/maxV)*ch;};
+  // grid + y labels
+  c.font="10px 'Neutral Face',sans-serif"; c.textBaseline="middle";
+  for(var g=0;g<=3;g++){ var v=maxV*g/3, y=Y(v); c.strokeStyle=g===0?"rgba(255,255,255,.18)":"rgba(255,255,255,.07)"; c.lineWidth=1; c.beginPath(); c.moveTo(padL,y+.5); c.lineTo(w-padR,y+.5); c.stroke();
+    c.fillStyle="rgba(255,255,255,.42)"; c.textAlign="right"; c.fillText(v>=1000?Math.round(v/1000)+"K":Math.round(v), padL-8, y); }
+  // x labels (month starts)
+  c.textAlign="center"; c.textBaseline="top";
+  for(var i=0;i<N;i++){ var d=new Date(2026,0,1+i); if(d.getDate()===1){ c.fillStyle="rgba(255,255,255,.42)"; c.fillText(d.toLocaleDateString(loc,{month:"short"}).toUpperCase(), X(i), padT+ch+8); c.strokeStyle="rgba(255,255,255,.07)"; c.beginPath(); c.moveTo(X(i)+.5,padT); c.lineTo(X(i)+.5,padT+ch); c.stroke(); } }
+  var last=Math.max(1,Math.floor((N-1)*prog));
+  function path(arr,n){ c.beginPath(); for(var i=0;i<=n;i++){ var x=X(i), y=Y(arr[i]); if(i===0) c.moveTo(x,y); else { var px=X(i-1), py=Y(arr[i-1]), mx=(px+x)/2; c.bezierCurveTo(mx,py,mx,y,x,y);} } }
+  // previous period
+  c.setLineDash([4,4]); c.strokeStyle="rgba(255,255,255,.32)"; c.lineWidth=1.4; path(PV,last); c.stroke(); c.setLineDash([]);
+  // area
+  var gl=c.createLinearGradient(padL,0,w-padR,0); gl.addColorStop(0,"#18D9C9"); gl.addColorStop(.55,"#FF9A3D"); gl.addColorStop(1,"#FF3D7F");
+  var ga=c.createLinearGradient(0,padT,0,padT+ch); ga.addColorStop(0,"rgba(255,154,61,.22)"); ga.addColorStop(1,"rgba(255,154,61,0)");
+  path(D,last); c.lineTo(X(last),padT+ch); c.lineTo(X(0),padT+ch); c.closePath(); c.fillStyle=ga; c.fill();
+  path(D,last); c.strokeStyle=gl; c.lineWidth=2.4; c.lineJoin="round"; c.stroke();
+  // legend
+  var lx=padL, ly=10; c.textBaseline="middle"; c.textAlign="left"; c.font="10px 'Neutral Face',sans-serif";
+  c.strokeStyle=gl; c.lineWidth=2.4; c.beginPath(); c.moveTo(lx,ly+.5); c.lineTo(lx+18,ly+.5); c.stroke();
+  c.fillStyle="rgba(255,255,255,.75)"; var t1=lang==="tr"?"OTURUM":"SESSIONS"; c.fillText(t1,lx+24,ly);
+  var lx2=lx+24+c.measureText(t1).width+18; c.setLineDash([4,4]); c.strokeStyle="rgba(255,255,255,.45)"; c.lineWidth=1.4; c.beginPath(); c.moveTo(lx2,ly+.5); c.lineTo(lx2+18,ly+.5); c.stroke(); c.setLineDash([]);
+  c.fillStyle="rgba(255,255,255,.5)"; c.fillText(lang==="tr"?"ÖNCEKİ DÖNEM":"PREVIOUS PERIOD",lx2+24,ly);
+  // hover / auto
+  var hov=-1, auto=false;
+  if(mouseX>=0) hov=Math.round((mouseX-padL)/cw*(N-1));
+  else if(touchMode && !reduce && prog>=1 && Date.now()-lastTouch>2500){ hov=Math.floor((tick/4)%(N+30))-15; auto=true; }
+  if(hov>=0&&hov<N&&prog>=1){
+    var hx=X(hov), hy=Y(D[hov]), py2=Y(PV[hov]);
+    c.strokeStyle="rgba(255,255,255,.35)"; c.lineWidth=1; c.beginPath(); c.moveTo(hx+.5,padT); c.lineTo(hx+.5,padT+ch); c.stroke();
+    c.fillStyle="#0A0A0A"; c.strokeStyle="rgba(255,255,255,.6)"; c.lineWidth=1.4; c.beginPath(); c.arc(hx,py2,3.5,0,6.283); c.fill(); c.stroke();
+    c.fillStyle="#fff"; c.beginPath(); c.arc(hx,hy,5.5,0,6.283); c.fill(); c.fillStyle="#FF3D7F"; c.beginPath(); c.arc(hx,hy,3,0,6.283); c.fill();
+    if(!auto){
+      var d2=new Date(2026,0,1+hov), diff=Math.round((D[hov]/PV[hov]-1)*100);
+      ro.innerHTML='<b>'+d2.toLocaleDateString(loc,{day:"numeric",month:"short"})+'</b> · '+D[hov].toLocaleString(loc)+' '+t("session")+' · <span style="color:'+(diff>=0?"#0A7F76":"#D6336C")+'">'+(diff>=0?"+":"")+diff+'%</span>';
+      var half=(ro.offsetWidth||180)/2; ro.style.left=Math.min(w-half,Math.max(half,hx))+"px"; ro.style.top=Math.max(32,hy-44)+"px"; ro.style.opacity=1;
+    } else ro.style.opacity=0;
   } else ro.style.opacity=0;
+  if(prog<1) prog=Math.min(1,prog+.018);
   tick++;
-  if(!reduce||hov>=0) requestAnimationFrame(draw);
+  if(!reduce||mouseX>=0||prog<1) requestAnimationFrame(draw);
 }
 function setX(e){var r=box.getBoundingClientRect(); var was=mouseX; mouseX=e.clientX-r.left; if(reduce&&was<0) requestAnimationFrame(draw);}
 box.addEventListener("pointermove",function(e){ if(e.pointerType!=="mouse"){lastTouch=Date.now();} setX(e); });
@@ -1009,6 +1045,7 @@ box.addEventListener("pointerdown",function(e){ lastTouch=Date.now(); clearTimeo
 box.addEventListener("pointerleave",function(e){ if(e.pointerType==="mouse"){ mouseX=-1; if(reduce) requestAnimationFrame(draw);} });
 ["pointerup","pointercancel"].forEach(function(ev){ box.addEventListener(ev,function(e){ if(e.pointerType!=="mouse"){ lastTouch=Date.now(); clearTimeout(idleT); idleT=setTimeout(function(){ mouseX=-1; if(reduce) requestAnimationFrame(draw); },1800);} }); });
 window.addEventListener("resize",function(){ if(reduce) requestAnimationFrame(draw); });
+var chartSeen=false; if("IntersectionObserver" in window && !reduce){ prog=0; new IntersectionObserver(function(es,o){ es.forEach(function(e){ if(e.isIntersecting&&!chartSeen){ chartSeen=true; prog=0; o.disconnect(); requestAnimationFrame(draw);} }); },{threshold:.3}).observe(box); } else prog=1;
 requestAnimationFrame(draw);
 
 /* marquee */
