@@ -534,6 +534,12 @@ section.s:not(.dark-sec) .b.now,section.s:not(.dark-sec) .b.stat:nth-of-type(3),
 #dcDots i{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.18);transition:.3s}
 #dcDots i.on{background:var(--grad);width:16px;border-radius:3px}
 @media (max-width:640px){.dchart{margin-top:30px;padding-bottom:10px}.hero .dchart .chart{height:120px}#dcSrc{margin-left:0}}
+
+.tile .hv,.tile .hv *{color:#fff!important}
+/* perf: no live blur on large sticky case cards */
+#work .case{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;will-change:auto}
+#work .case:not(.dark):not(:first-child){background-color:rgba(246,245,242,.94)!important}
+section.s:not(.dark-sec) #work .case.dark,#work .case.dark{background-color:#141414!important}
 /* ---------- mobile ---------- */
 @media (max-width:640px){
   body{font-size:16px}
@@ -936,8 +942,10 @@ function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;
 
 
 /* ---------- dot sphere (hero) ---------- */
+var heroVis=true, sphereParked=false, chartParked=false;
 (function(){
   var cv=document.getElementById("sphere"); if(!cv) return;
+  if("IntersectionObserver" in window){ new IntersectionObserver(function(es){ heroVis=es[0].isIntersecting; if(heroVis&&sphereParked){ sphereParked=false; requestAnimationFrame(frame);} if(heroVis&&chartParked&&window.__fkDraw){ chartParked=false; requestAnimationFrame(window.__fkDraw);} },{rootMargin:"100px"}).observe(document.getElementById("top")); }
   var reduceM=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var P=[], n=900, ga=Math.PI*(3-Math.sqrt(5));
   for(var i=0;i<n;i++){ var y=1-(i/(n-1))*2, r=Math.sqrt(1-y*y), th=ga*i; P.push([Math.cos(th)*r,y,Math.sin(th)*r]); }
@@ -958,7 +966,7 @@ function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;
       c.fillStyle="rgba("+(cc[0]|0)+","+(cc[1]|0)+","+(cc[2]|0)+","+(.18+d*.82).toFixed(2)+")";
       c.beginPath(); c.arc(cx+x*R, cy+y*R, rr, 0, 6.283); c.fill();
     }
-    if(!reduceM){ rot+=.0026; requestAnimationFrame(frame); }
+    if(!reduceM){ rot+=.0026; if(heroVis) requestAnimationFrame(frame); else sphereParked=true; }
   }
   requestAnimationFrame(frame);
 })();
@@ -1063,8 +1071,9 @@ function draw(){
   } else ro.style.opacity=0;
   if(prog<1) prog=Math.min(1,prog+.008);
   tick++;
-  if(!reduce||mouseX>=0||prog<1) requestAnimationFrame(draw);
+  if(!reduce||mouseX>=0||prog<1){ if(heroVis) requestAnimationFrame(draw); else chartParked=true; }
 }
+window.__fkDraw=draw;
 function setX(e){var r=box.getBoundingClientRect(); var was=mouseX; mouseX=e.clientX-r.left; if(reduce&&was<0) requestAnimationFrame(draw);}
 box.addEventListener("pointermove",function(e){ if(e.pointerType!=="mouse"){lastTouch=Date.now();} setX(e); });
 box.addEventListener("pointerdown",function(e){ lastTouch=Date.now(); clearTimeout(idleT); setX(e); });
@@ -1132,10 +1141,10 @@ var CASES=[
   outcome:{tr:"Güvenilir bir funnel referansı, geliştiriciler için öncelikli düzeltme listesi ve CRO aracına hazır test listesi.",en:"A trusted funnel baseline, a prioritised fix list and a test backlog ready for the CRO tool."}},
  {bg:"#111",dark:true,seed:11,type:{tr:"Atribüsyon altyapısı",en:"Attribution stack"},sector:{tr:"Regüle fintech (kripto)",en:"Regulated fintech (crypto)"},
   title:{tr:"Pazarlama, ürün ve yönetim için tek bir atribüsyon ve raporlama altyapısı",en:"One attribution and reporting stack for marketing, product and leadership"},
-  abs:{tr:"Adjust, GA4, Firebase, BigQuery ve Meta Ads API'nin tek bir modelde birleşmesi.",en:"Adjust, GA4, Firebase, BigQuery and the Meta Ads API joined into one model."},
+  abs:{tr:"Adjust, GA4, Firebase, BigQuery, MSSQL ve Trino SQL'in tek bir modelde birleşmesi.",en:"Adjust, GA4, Firebase, BigQuery, MSSQL and Trino SQL joined into one model."},
   role:{tr:"Marketing Data Analytics Manager",en:"Marketing Data Analytics Manager"},stack:"Adjust · BigQuery · Qlik Sense · Power BI",
   intro:{tr:"Regüle bir trading ürününde pazarlama hızlı cevap ister, uyum kuralları ise neyin ölçülebileceğini sınırlar. Hedef, Türkiye pazarında edinim ve aktivasyonun tutarlı tek bir görünümüydü.",en:"In a regulated trading product, marketing needs fast answers while compliance limits what can be tracked. The goal was one consistent view of acquisition and activation for the Türkiye market."},
-  steps:{tr:[["Tanımları hizala","Install, kayıt, doğrulama ve ilk işlemin ne sayılacağını netleştirdim."],["Kaynakları bağla","Adjust event ve callback'leri, Firebase, GA4 ve Meta Ads API harcaması BigQuery'ye akıyor."],["Modelle ve mutabakat yap","MMP ve backend verisini birleştiren, tutarsızlığı erken gösteren SQL modelleri."],["Raporlamayı otomatikleştir","Qlik Sense ve Power BI dashboard'ları, manuel raporların yerini alan scriptler."],["Sağlıklı tut","Adjust API ve entegrasyonlarda sürekli debug; A/B test ve UX analizi."]],en:[["Align definitions","Agreed what counts as install, sign-up, verification and first trade."],["Wire the sources","Adjust events and callbacks, Firebase, GA4 and Meta Ads API spend flowing into BigQuery."],["Model and reconcile","SQL models joining MMP and backend data that surface gaps early."],["Automate reporting","Qlik Sense and Power BI dashboards plus scripts replacing manual reports."],["Keep it healthy","Ongoing Adjust API and integration debugging; A/B test and UX analysis."]]},
+  steps:{tr:[["Tanımları hizala","Install, kayıt, doğrulama ve ilk işlemin ne sayılacağını netleştirdim."],["Kaynakları bağla","Adjust event ve callback'leri, Firebase ve GA4 BigQuery'ye; backend verisi MSSQL ve Trino SQL üzerinden modele akıyor."],["Modelle ve mutabakat yap","MMP ve backend verisini birleştiren, tutarsızlığı erken gösteren SQL modelleri."],["Raporlamayı otomatikleştir","Qlik Sense ve Power BI dashboard'ları, manuel raporların yerini alan scriptler."],["Sağlıklı tut","Adjust API ve entegrasyonlarda sürekli debug; A/B test ve UX analizi."]],en:[["Align definitions","Agreed what counts as install, sign-up, verification and first trade."],["Wire the sources","Adjust events and callbacks, Firebase and GA4 flowing into BigQuery, with backend data queried through MSSQL and Trino SQL."],["Model and reconcile","SQL models joining MMP and backend data that surface gaps early."],["Automate reporting","Qlik Sense and Power BI dashboards plus scripts replacing manual reports."],["Keep it healthy","Ongoing Adjust API and integration debugging; A/B test and UX analysis."]]},
   outcome:{tr:"Herkesin aynı rakama baktığı bir yapı; raporlama emeği kopyala-yapıştırdan analize kaydı.",en:"Everyone looks at the same number; reporting effort moved from copy-paste to analysis."}},
  {bg:"var(--blush)",seed:5,type:{tr:"CRO ölçümleme planı",en:"CRO measurement plan"},sector:{tr:"Moda perakende",en:"Fashion retail"},
   title:{tr:"CRO sorularını cevaplanabilir kılan ölçümleme yol haritası",en:"A measurement roadmap that makes CRO questions answerable"},
@@ -1351,9 +1360,9 @@ document.addEventListener("keydown",function(e){if(!lb.classList.contains("open"
 /* ---------- Experience ---------- */
 var XP=[
  {k:"stablex",r:"Marketing Data Analytics Manager",d:{tr:"Ağu 2025 – Günümüz",en:"Aug 2025 – Present"},m:{tr:"İstanbul · Hibrit · Türkiye pazarı",en:"Istanbul · Hybrid · Türkiye market"},
-  b:{tr:["Regüle bir kripto varlık platformunda uçtan uca pazarlama ve ürün analitiğinin sahibiyim; Adjust, GA4, BigQuery, Firebase ve Facebook Ads API'yi tek bir atribüsyon ve raporlama altyapısında birleştiriyorum.","Analitik operasyonlarda ürün, pazarlama ve mühendislik ekiplerinin teknik muhatabıyım.","SQL veri modelleri, Qlik Sense / Power BI dashboard'ları ve manuel raporlamayı azaltan otomasyonlar geliştiriyorum.","Adjust API ve diğer araçlardaki entegrasyon ve tracking sorunlarını çözüyor, A/B test ve UX analizi yapıyorum."],
-     en:["I own end-to-end marketing and product analytics for a regulated crypto platform, unifying Adjust, GA4, BigQuery, Firebase and the Facebook Ads API into one attribution and reporting stack.","Technical point of contact for analytics across product, marketing and engineering.","I build SQL data models, Qlik Sense / Power BI dashboards and automation that cuts manual reporting.","I fix integration and tracking issues across the Adjust API and other tools, and run A/B test and UX analysis."]},
-  tools:["Adjust","BigQuery","Firebase","Qlik Sense","Power BI","Python"]},
+  b:{tr:["Regüle bir kripto varlık platformunda uçtan uca pazarlama ve ürün analitiğinin sahibiyim; Adjust, GA4, BigQuery, Firebase, MSSQL ve Trino SQL'i tek bir atribüsyon ve raporlama altyapısında birleştiriyorum.","Analitik operasyonlarda ürün, pazarlama ve mühendislik ekiplerinin teknik muhatabıyım.","SQL veri modelleri, Qlik Sense / Power BI dashboard'ları ve manuel raporlamayı azaltan otomasyonlar geliştiriyorum.","Adjust API ve diğer araçlardaki entegrasyon ve tracking sorunlarını çözüyor, A/B test ve UX analizi yapıyorum."],
+     en:["I own end-to-end marketing and product analytics for a regulated crypto platform, unifying Adjust, GA4, BigQuery, Firebase, MSSQL and Trino SQL into one attribution and reporting stack.","Technical point of contact for analytics across product, marketing and engineering.","I build SQL data models, Qlik Sense / Power BI dashboards and automation that cuts manual reporting.","I fix integration and tracking issues across the Adjust API and other tools, and run A/B test and UX analysis."]},
+  tools:["Adjust","BigQuery","Firebase","MSSQL","Trino SQL","Qlik Sense","Power BI","Python"]},
  {k:"defacto",r:"Senior App & Web Analyst",d:{tr:"Ara 2022 – Tem 2025",en:"Dec 2022 – Jul 2025"},m:{tr:"İstanbul · Hibrit · TR, MENA ve DE pazarları",en:"Istanbul · Hybrid · TR, MENA and DE markets"},
   b:{tr:["Türkiye, MENA ve DE için app ve web analitiğini yönettim; pazarlama, ürün ve IT arasında teknik köprüydüm.","Atribüsyon, A/B test ve UX deneyleri için Adjust, GA4, BigQuery, Firebase ve GTM entegrasyonlarını kurdum ve sürdürdüm.","Farklı veritabanları arasındaki tutarsızlıkları çözdüm, tekrarlayan raporları otomatikleştirdim."],
      en:["Ran app and web analytics for Türkiye, MENA and DE as the technical bridge between marketing, product and IT.","Implemented and maintained Adjust, GA4, BigQuery, Firebase and GTM for attribution, A/B tests and UX experiments.","Resolved discrepancies across databases and automated recurring reports."]},
