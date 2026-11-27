@@ -586,6 +586,101 @@ section.s:not(.dark-sec) .b.now,section.s:not(.dark-sec) .b.stat:nth-of-type(3),
   .pipe2 .st::after{display:none}
   footer .wrap{flex-direction:column;align-items:flex-start;gap:8px}
 }
+
+/* ================= TYPOGRAPHY SYSTEM =================
+   Scale: major third (1.25) on a 16px base, fluid between 375px and 1440px.
+   Roles: display > h1 > h2 > h3 > h4 > lead > body > small > label > micro.
+   Alignment: everything flush-left on the content grid; running text capped at a readable measure. */
+:root{
+  --fs-display:clamp(2.4rem,1.35rem + 4.6vw,6rem);
+  --fs-h1:clamp(2.1rem,1.3rem + 3.5vw,4.6rem);
+  --fs-h2:clamp(1.55rem,1.2rem + 1.5vw,2.4rem);
+  --fs-h3:clamp(1.1rem,1rem + .4vw,1.35rem);
+  --fs-h4:1rem;
+  --fs-stat:clamp(2.6rem,2rem + 2.4vw,3.6rem);
+  --fs-lead:clamp(1.06rem,.98rem + .35vw,1.25rem);
+  --fs-body:1rem;
+  --fs-small:.875rem;
+  --fs-label:.75rem;
+  --fs-micro:.6875rem;
+  --lh-tight:1.02; --lh-head:1.1; --lh-title:1.22; --lh-text:1.62; --lh-small:1.5; --lh-label:1.25;
+  --tr-label:.07em;
+  --measure:62ch; --measure-lead:54ch;
+  --tx-1:#111111; --tx-2:#4A4A46; --tx-3:#6E6D67;
+  --hl:#0A7F76;
+  --sp-1:8px; --sp-2:12px; --sp-3:16px; --sp-4:24px; --sp-5:32px; --sp-6:48px;
+}
+.dark-sec,.hero,.contact,.b.now,.b.stat:nth-of-type(3),.b.stat:nth-of-type(6),.case.dark,.sv.dark,.dark-sec .gi,.dark-sec .sv{
+  --tx-1:#FFFFFF; --tx-2:rgba(255,255,255,.74); --tx-3:rgba(255,255,255,.56); --hl:#5FF0E4;
+}
+.sv.grad,.b.stat:nth-of-type(4),#work .case:first-child{--tx-1:#111;--tx-2:rgba(17,17,17,.78);--tx-3:rgba(17,17,17,.62);--hl:#111}
+body{font-size:var(--fs-body);line-height:var(--lh-text);color:var(--tx-1);font-feature-settings:"kern","liga";text-rendering:optimizeLegibility}
+
+/* --- display & headings (Neutral Face, bold) --- */
+.hero h1{font-size:var(--fs-display);line-height:var(--lh-tight);font-weight:700;letter-spacing:0;max-width:13em}
+.head h2,.contact h2{font-size:var(--fs-h1);line-height:var(--lh-tight);font-weight:700;letter-spacing:0;max-width:15em}
+.case h3,.sbody h2{font-size:var(--fs-h2);line-height:var(--lh-head);font-weight:700;letter-spacing:0;max-width:20em}
+.sv h3,.gi h3,.row .role,.cred h3,.b.now h3,.tile .lg .wm{font-size:var(--fs-h3);line-height:var(--lh-title);font-weight:700;letter-spacing:.005em}
+.b.now h3{font-weight:400}
+.pipe2 .st b,.fd b,.steps b{font-family:var(--display);font-size:var(--fs-h4);line-height:var(--lh-title);font-weight:700;color:var(--tx-1)}
+.b.stat .n{font-size:var(--fs-stat);line-height:1;font-weight:700}
+
+/* --- running text (Geist) --- */
+.hero-foot p,.b.bio,.sbody .intro,.contact p,.case p{font-family:var(--body);font-size:var(--fs-lead);line-height:var(--lh-text);font-weight:400;color:var(--tx-2);max-width:var(--measure-lead)}
+.head p{font-size:var(--fs-lead);line-height:var(--lh-text);color:var(--tx-2);max-width:var(--measure-lead)}
+.b.bio{color:var(--tx-1)}
+.sv p,.gi p,.row li,.steps span,.pipe2 .st span,.fd span,.lb .two div,.outcome,.cred li,.tile .hv{font-size:var(--fs-small);line-height:var(--lh-small);color:var(--tx-2);max-width:var(--measure)}
+.sv ul{font-size:var(--fs-small);line-height:var(--lh-small);color:var(--tx-1)}
+.outcome{color:var(--tx-1);font-size:var(--fs-body);line-height:var(--lh-text)}
+.b.stat>div:last-child{font-size:var(--fs-small);line-height:var(--lh-small);color:var(--tx-2)}
+
+/* --- labels (Neutral Face, uppercase, tracked) --- */
+.kick,.tagline,.links a,.pill,.hello,.so,.case .meta span,.case .go,.chips span,.gfil button,.need button,.sb,.sbody h4,.facts dt,.tile .cap,.row .when,.sv .num,.gi .ph .kind,.feat-badge,.tg button,.meter b,.lb .two b,.lang button,.privacy,.note,.chart-label,.readout,.tool,.cred li span,.vtext{
+  font-family:var(--mono);text-transform:uppercase;letter-spacing:var(--tr-label);line-height:var(--lh-label)}
+.kick,.sbody h4,.facts dt,.lb .two b,.meter b{font-size:var(--fs-label);color:var(--tx-3);font-weight:400}
+.links a,.pill,.case .go,.gfil button,.sb,.lang button,.tg button,.need button{font-size:var(--fs-label);font-weight:700}
+.links a{font-weight:400}
+.chips span,.case .meta span,.tile .cap,.row .when,.sv .num,.gi .ph .kind,.feat-badge,.hello,.so,.tool{font-size:var(--fs-micro)}
+.privacy,.note,.chart-label,.readout,.cred li span{font-size:var(--fs-micro);color:var(--tx-3)}
+.so-txt span,.mail code{text-transform:none;letter-spacing:0;font-family:var(--body);font-size:var(--fs-small)}
+.facts dd{font-family:var(--body);font-size:var(--fs-body);font-weight:600;line-height:var(--lh-small);color:var(--tx-1);margin-top:6px}
+.tool{color:var(--tx-2);letter-spacing:.04em}
+
+/* --- highlight system: weight + colour --- */
+b,strong{font-weight:600;color:var(--tx-1)}
+em,.hl{font-style:normal;font-weight:600;color:var(--hl)}
+.b.bio em{background:none;padding:0;color:var(--hl);font-weight:600}
+.hero h1 .o,.contact h2{font-weight:700}
+.hero-foot p b,.case p b{font-weight:600;color:var(--tx-1)}
+.tile .cap b{font-weight:700;color:var(--tx-1)}
+.tag-in{font-weight:700}
+
+/* --- alignment & rhythm --- */
+.head{display:grid;grid-template-columns:1fr;justify-items:start;gap:var(--sp-4);margin-bottom:var(--sp-6)}
+.head>div{display:grid;gap:var(--sp-3)}
+.kick{margin:0}
+.head h2{margin:0}
+.head p{margin:0;justify-self:start}
+.hero-foot{align-items:end}
+.hero-foot>div:first-child{display:grid;gap:var(--sp-4)}
+.socials{margin-top:0}
+.sv,.gi .tx,.cred,.b{gap:var(--sp-3)}
+.sv{display:flex;flex-direction:column}
+.sv h3{margin:0}
+.case .meta{gap:var(--sp-1)}
+.case h3{margin:var(--sp-4) 0 var(--sp-3)}
+.case .go{margin-top:var(--sp-5)}
+.gi .tx{display:grid;gap:var(--sp-2)}
+.sbody .intro{margin-bottom:var(--sp-5)}
+.sbody h4{margin:var(--sp-6) 0 var(--sp-3)}
+.contact p{margin-top:var(--sp-4)}
+.row .inner ul{gap:var(--sp-2)}
+@media (max-width:640px){
+  .head{gap:var(--sp-3);margin-bottom:var(--sp-5)}
+  .case h3{margin:var(--sp-3) 0 var(--sp-2)}
+  .case .go{margin-top:var(--sp-4)}
+  .hero-foot p{font-size:var(--fs-lead)}
+}
 </style>
 </head>
 <body>
@@ -764,20 +859,20 @@ var T={tr:{
 "nav.sub":"web &amp; app analytics","nav.about":"Hakkımda","nav.services":"Hizmetler","nav.work":"İşler","nav.xp":"Deneyim","nav.brands":"Markalar","nav.cta":"Tanışalım",
 "hero.hello":"Merhaba, ben Furkan",
 "hero.h1":'Verinin <span class="o">dağınık</span> olduğu yerde <span class="chip"><img src="logos/tools/ga.svg" alt=""><img src="logos/tools/gtm.svg" alt=""><img src="logos/tools/bigquery.svg" alt=""></span> düzen kurarım.',
-"hero.lede":"İstanbul'da <b>Web &amp; App Analytics Specialist</b> olarak çalışıyorum. Tracking kurar, MMP ve atribüsyonu bağlar, ham veriyi BigQuery'de modelleyip ekiplerin gerçekten kullandığı raporlara çeviririm.",
+"hero.lede":"İstanbul'da <b>Web &amp; App Analytics Specialist</b> olarak çalışıyorum. Tracking kurar, MMP ve atribüsyonu bağlar, ham veriyi BigQuery'de modelleyip <em>ekiplerin gerçekten kullandığı raporlara</em> çeviririm.",
 "hero.c1":"İşlerime bak","hero.c2":"Bir proje konuşalım","hero.chart":"simüle veri · imleci gezdirin","hero.chartm":"simüle veri · dokunun ya da parmağınızı kaydırın",
 "ab.k":"Hakkımda","ab.t":"Veriyi önce güvenilir, sonra kullanışlı yaparım.",
 "ab.bio":"8 yılı aşkın süredir fintech, perakende, mobilite ve ajans tarafında çalışıyorum. İşim, bir kullanıcının ilk tıklamasından satın almasına kadar her adımın <em>doğru ölçülmesi</em> ve bu verinin pazarlama, ürün ve yönetim için <em>aynı dili konuşması</em>. Rakamlar tutmadığında beni ararlar; genelde sorun iki aracın arasındadır.",
 "ab.now":"ŞU AN","ab.nowd":"Kripto varlık alım-satım platformu · İstanbul · Türkiye pazarı",
 "ab.s1":"yıl web &amp; app analitiği","ab.s2":"MMP, analitik ve BI aracı","ab.s3":"şirket ve marka","ab.s4":"ajansta aynı anda yönettiğim müşteri hesabı",
-"sv.k":"Hizmet kapsamı","sv.t":"İlk event'ten son dashboard'a kadar.","sv.p":"Tek bir parçayı ya da altyapının tamamını üstlenebilirim. En sık çalıştığım alanlar:",
-"wk.k":"Seçili işler","wk.t":"Bir veri problemine nasıl yaklaşıyorum?","wk.p":"Kurum içi işler, ajans projeleri ve analitik case çalışmalarından. Müşteri verisi ve rakamlar çıkarıldı; görünen şey yöntem.","wk.n":"Kartlara tıklayarak vakanın tamamını açabilirsiniz.",
+"sv.k":"Hizmet kapsamı","sv.t":"İlk event'ten son dashboard'a kadar.","sv.p":"Tek bir parçayı ya da <em>altyapının tamamını</em> üstlenebilirim. En sık çalıştığım alanlar:",
+"wk.k":"Seçili işler","wk.t":"Bir veri problemine nasıl yaklaşıyorum?","wk.p":"Kurum içi işler, ajans projeleri ve analitik case çalışmalarından. Müşteri verisi ve rakamlar çıkarıldı; <em>görünen şey yöntem</em>.","wk.n":"Kartlara tıklayarak vakanın tamamını açabilirsiniz.",
 "xp.k":"Deneyim","xp.t":"Çalıştığım şirketler.","xp.p":"Detayları görmek için bir satıra tıklayın.",
 "br.k":"Markalar","br.t":"Hizmet verdiğim markalar.","br.p":"Kurum içi rollerim ve ajans döneminde teknik muhatabı olduğum hesaplar. Rolümü görmek için üzerine gelin.",
 "tl.k":"Araç seti","tl.t":"Her gün içinde olduğum araçlar.","tl.c":"Sertifikalar","tl.e":"Eğitim &amp; diller","tl.e1":"İstanbul Üniversitesi, Bilgisayar Programcılığı","tl.e2":"Profilo Anadolu Teknik Lisesi, Veritabanı Programcılığı","tl.l1":"Türkçe","tl.l1v":"Ana dil","tl.l2":"İngilizce","tl.l2v":"İleri, profesyonel",
 "ct.t":"Rakamlar tutmuyor mu?","ct.p":"Neyi ölçtüğünüzü ve nerede bozulduğunu anlatın. Tracking denetimi, MMP kurulumu, dashboard ya da uçtan uca analitik yol haritası; birlikte bakalım.","ct.copy":"Kopyala",
 "f.n":"Adınız","f.c":"Şirket","f.need":"Neye ihtiyacınız var?","f.m":"Kısaca anlatın","f.s":"E-postayı hazırla",
-"ft":"Bu sitede çerez ya da tracker yok. Evet, bilerek.","nav.db":"Dashboard'lar","db.k":"Dashboard'lar &amp; otomasyonlar","db.t":"Kurduğum raporlar, kontroller ve alarmlar.","db.p":"Freelance ve ajans projelerimden örnekler. Rakamlar ve müşteri adları bulanıklaştırıldı; görmeniz gereken yapı ve kurgu.","db.priv":"Tüm ekran görüntülerinde gerçek rakamlar ve marka bilgileri gizlendi.","g.all":"Tümü","g.dash":"Dashboard","g.auto":"Otomasyon","g.plan":"Health check &amp; plan","g.goal":"Amaç","g.sol":"Çözüm","g.open":"Büyüt","m.p":"← Önceki","m.n":"Sonraki →","m.c":"Kapat ✕",
+"ft":"Bu sitede çerez ya da tracker yok. Evet, bilerek.","nav.db":"Dashboard'lar","db.k":"Dashboard'lar &amp; otomasyonlar","db.t":"Kurduğum raporlar, kontroller ve alarmlar.","db.p":"Freelance ve ajans projelerimden örnekler. Rakamlar ve müşteri adları bulanıklaştırıldı; görmeniz gereken <em>yapı ve kurgu</em>.","db.priv":"Tüm ekran görüntülerinde gerçek rakamlar ve marka bilgileri gizlendi.","g.all":"Tümü","g.dash":"Dashboard","g.auto":"Otomasyon","g.plan":"Health check &amp; plan","g.goal":"Amaç","g.sol":"Çözüm","g.open":"Büyüt","m.p":"← Önceki","m.n":"Sonraki →","m.c":"Kapat ✕",
 "copied":"E-posta kopyalandı","copyfail":"Kopyalanamadı, adresi seçip kopyalayın","inh":"Kurum içi","ag":"Ajans","open":"Vakayı oku",
 "sector":"Sektör","role":"Rolüm","stack":"Araçlar","approach":"Yaklaşım","sample":"Örnek sorgu (şema sadeleştirildi)","outcome":"Ne değiştirdi",
 "needname":"Kime döneceğimi bilmem için adınızı yazın.","ok":"E-postanız hazır: <a id='mg' href='#'>mail uygulamasında aç</a> ya da kopyalayıp fkarakutuk17@gmail.com adresine gönderin.",
@@ -786,20 +881,20 @@ var T={tr:{
 "nav.sub":"web &amp; app analytics","nav.about":"About","nav.services":"Services","nav.work":"Work","nav.xp":"Experience","nav.brands":"Brands","nav.cta":"Let's talk",
 "hero.hello":"Hi, I'm Furkan",
 "hero.h1":'I bring order where <span class="chip"><img src="logos/tools/ga.svg" alt=""><img src="logos/tools/gtm.svg" alt=""><img src="logos/tools/bigquery.svg" alt=""></span> data gets <span class="o">messy</span>.',
-"hero.lede":"I'm a <b>Web &amp; App Analytics Specialist</b> in Istanbul. I set up tracking, connect MMP and attribution, model raw data in BigQuery and turn it into reports teams actually use.",
+"hero.lede":"I'm a <b>Web &amp; App Analytics Specialist</b> in Istanbul. I set up tracking, connect MMP and attribution, model raw data in BigQuery and turn it into <em>reports teams actually use</em>.",
 "hero.c1":"See my work","hero.c2":"Let's talk about a project","hero.chart":"simulated data · move your cursor","hero.chartm":"simulated data · tap or drag across the bars",
 "ab.k":"About","ab.t":"First I make data trustworthy. Then I make it useful.",
 "ab.bio":"For 8+ years I've worked across fintech, retail, mobility and agency teams. My job is making sure every step from a user's first tap to their purchase is <em>measured correctly</em>, and that marketing, product and leadership <em>read the same numbers</em>. People call me when the numbers don't match; usually the problem sits between two tools.",
 "ab.now":"NOW","ab.nowd":"Crypto-asset trading platform · Istanbul · Türkiye market",
 "ab.s1":"years in web &amp; app analytics","ab.s2":"MMP, analytics and BI tools","ab.s3":"companies and brands","ab.s4":"client accounts at once at the agency",
-"sv.k":"Services","sv.t":"From the first event to the last dashboard.","sv.p":"I can take one piece or the whole stack. The areas I work in most:",
-"wk.k":"Selected work","wk.t":"How I approach a data problem.","wk.p":"From in-house roles, agency projects and analytics case studies. Client data and figures removed; what you see is the method.","wk.n":"Click a card to open the full case.",
+"sv.k":"Services","sv.t":"From the first event to the last dashboard.","sv.p":"I can take one piece or <em>the whole stack</em>. The areas I work in most:",
+"wk.k":"Selected work","wk.t":"How I approach a data problem.","wk.p":"From in-house roles, agency projects and analytics case studies. Client data and figures removed; <em>what you see is the method</em>.","wk.n":"Click a card to open the full case.",
 "xp.k":"Experience","xp.t":"Where I've worked.","xp.p":"Click a row for details.",
 "br.k":"Brands","br.t":"Brands I've worked for.","br.p":"In-house roles and the accounts I was the technical contact for at the agency. Hover to see my role.",
 "tl.k":"Toolbox","tl.t":"Tools I'm in every day.","tl.c":"Certifications","tl.e":"Education &amp; languages","tl.e1":"Istanbul University, Computer Programming","tl.e2":"Profilo Anatolian Technical HS, Database Programming","tl.l1":"Turkish","tl.l1v":"Native","tl.l2":"English","tl.l2v":"Fluent, professional",
 "ct.t":"Numbers don't match?","ct.p":"Tell me what you measure and where it breaks. Tracking audits, MMP setup, dashboards or a full analytics roadmap; let's take a look together.","ct.copy":"Copy",
 "f.n":"Your name","f.c":"Company","f.need":"What do you need?","f.m":"Tell me briefly","f.s":"Prepare email",
-"ft":"No cookies or trackers on this site. Yes, on purpose.","nav.db":"Dashboards","db.k":"Dashboards &amp; automation","db.t":"Reports, checks and alerts I've built.","db.p":"Examples from freelance and agency projects. Figures and client names are blurred; what matters is the structure and logic.","db.priv":"Real figures and brand details are hidden in every screenshot.","g.all":"All","g.dash":"Dashboard","g.auto":"Automation","g.plan":"Health check &amp; plan","g.goal":"Goal","g.sol":"Solution","g.open":"Enlarge","m.p":"← Prev","m.n":"Next →","m.c":"Close ✕",
+"ft":"No cookies or trackers on this site. Yes, on purpose.","nav.db":"Dashboards","db.k":"Dashboards &amp; automation","db.t":"Reports, checks and alerts I've built.","db.p":"Examples from freelance and agency projects. Figures and client names are blurred; what matters is the <em>structure and logic</em>.","db.priv":"Real figures and brand details are hidden in every screenshot.","g.all":"All","g.dash":"Dashboard","g.auto":"Automation","g.plan":"Health check &amp; plan","g.goal":"Goal","g.sol":"Solution","g.open":"Enlarge","m.p":"← Prev","m.n":"Next →","m.c":"Close ✕",
 "copied":"Email copied","copyfail":"Copy failed, select the address and copy it","inh":"In-house","ag":"Agency","open":"Read the case",
 "sector":"Sector","role":"My role","stack":"Stack","approach":"Approach","sample":"Sample query (schema simplified)","outcome":"What it changed",
 "needname":"Add your name so I know who to reply to.","ok":"Your email is ready: <a id='mg' href='#'>open it in your mail app</a>, or copy it and send it to fkarakutuk17@gmail.com.",
