@@ -523,7 +523,7 @@ section.s:not(.dark-sec) .b.now,section.s:not(.dark-sec) .b.stat:nth-of-type(3),
 /* public dataset chart (minimal, animated) */
 .dchart{margin-top:44px;position:relative;z-index:1}
 .dc-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:var(--mono);text-transform:uppercase;letter-spacing:var(--tr-label);font-size:var(--fs-micro);color:rgba(255,255,255,.5);margin-bottom:6px}
-.dc-kick{width:7px;height:7px;border-radius:50%;background:#5FF0E4;box-shadow:0 0 0 0 rgba(95,240,228,.6);animation:pulse 2s infinite}
+.dc-kick{width:7px;height:7px;border-radius:50%;background:#5FF0E4;box-shadow:0 0 0 0 rgba(95,240,228,.6);animation:pulse 4s infinite}
 #dcName{color:rgba(255,255,255,.8)}
 #dcLast{color:#fff;font-weight:700}
 .dc-sep{opacity:.5}
@@ -1032,7 +1032,7 @@ function draw(){
   var mn=Math.min.apply(null,vals), mx=Math.max.apply(null,vals);
   var padL=6, padR=14, padT=18, padB=14, cw=w-padL-padR, ch=h-padT-padB, lo=mn-(mx-mn)*.08, hi=mx+(mx-mn)*.08;
   var X=function(i){return padL+i*cw/(n-1);}, Y=function(v){return padT+ch-(v-lo)/(hi-lo)*ch;};
-  c.globalAlpha=Math.min(1,fade); if(fade<1) fade+=.06;
+  c.globalAlpha=Math.min(1,fade); if(fade<1) fade+=.02;
   var last=Math.max(1,Math.floor((n-1)*prog));
   function path(){ c.beginPath(); for(var i=0;i<=last;i++){ var x=X(i), y=Y(vals[i]); if(i===0) c.moveTo(x,y); else { var px=X(i-1), py=Y(vals[i-1]), m=(px+x)/2; c.bezierCurveTo(m,py,m,y,x,y);} } }
   var gl=c.createLinearGradient(padL,0,w-padR,0); gl.addColorStop(0,"#18D9C9"); gl.addColorStop(.55,"#FF9A3D"); gl.addColorStop(1,"#FF3D7F");
@@ -1041,11 +1041,11 @@ function draw(){
   path(); c.strokeStyle=gl; c.lineWidth=2.2; c.lineJoin="round"; c.stroke();
   c.globalAlpha=1;
   if(prog>=1){
-    var phase=(tick%360)/360, pi=Math.min(n-1,Math.floor(phase*(n-1))), px=X(pi), py=Y(vals[pi]);
-    var gr=c.createRadialGradient(px,py,0,px,py,26); gr.addColorStop(0,"rgba(255,255,255,.35)"); gr.addColorStop(1,"rgba(255,255,255,0)");
+    var phase=(tick%1500)/1500, pi=Math.min(n-1,Math.floor(phase*(n-1))), px=X(pi), py=Y(vals[pi]);
+    var gr=c.createRadialGradient(px,py,0,px,py,26); gr.addColorStop(0,"rgba(255,255,255,.22)"); gr.addColorStop(1,"rgba(255,255,255,0)");
     if(mouseX<0){ c.fillStyle=gr; c.beginPath(); c.arc(px,py,26,0,6.283); c.fill(); c.fillStyle="#fff"; c.beginPath(); c.arc(px,py,3.6,0,6.283); c.fill(); }
-    var lx=X(n-1), ly=Y(vals[n-1]), pr=3+((tick%80)/80)*10; c.fillStyle="rgba(255,61,127,"+(0.4*(1-(tick%80)/80)).toFixed(2)+")"; c.beginPath(); c.arc(lx,ly,pr,0,6.283); c.fill(); c.fillStyle="#FF3D7F"; c.beginPath(); c.arc(lx,ly,3.5,0,6.283); c.fill();
-    if(mouseX<0 && !reduce){ cycleT++; if(cycleT>540){ cycleT=0; nextDs(); } } else cycleT=0;
+    var lx=X(n-1), ly=Y(vals[n-1]), pr=3+((tick%220)/220)*8; c.fillStyle="rgba(255,61,127,"+(0.3*(1-(tick%220)/220)).toFixed(2)+")"; c.beginPath(); c.arc(lx,ly,pr,0,6.283); c.fill(); c.fillStyle="#FF3D7F"; c.beginPath(); c.arc(lx,ly,3.5,0,6.283); c.fill();
+    if(mouseX<0 && !reduce){ cycleT++; if(cycleT>1800){ cycleT=0; nextDs(); } } else cycleT=0;
   }
   var hov=-1, auto=false;
   if(mouseX>=0) hov=Math.round((mouseX-padL)/cw*(n-1));
@@ -1061,7 +1061,7 @@ function draw(){
       var half=(ro.offsetWidth||200)/2; ro.style.left=Math.min(w-half,Math.max(half,hx))+"px"; ro.style.top=Math.max(0,hy-46)+"px"; ro.style.opacity=1;
     } else ro.style.opacity=0;
   } else ro.style.opacity=0;
-  if(prog<1) prog=Math.min(1,prog+.022);
+  if(prog<1) prog=Math.min(1,prog+.008);
   tick++;
   if(!reduce||mouseX>=0||prog<1) requestAnimationFrame(draw);
 }
