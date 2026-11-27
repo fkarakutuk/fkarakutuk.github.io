@@ -520,30 +520,20 @@ section.s:not(.dark-sec) .b.now,section.s:not(.dark-sec) .b.stat:nth-of-type(3),
 .hero{padding-bottom:56px}
 @media (max-width:640px){.hero .chart{height:190px;padding:12px 10px 4px;margin-top:32px}.hero .chart canvas{height:100%}.hero .chart-label{position:static;display:block;margin-top:8px}.hero{padding-bottom:36px}}
 
-/* public dataset chart */
-.dchart{margin-top:48px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.09);border-radius:22px;padding:20px 20px 14px;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);position:relative;z-index:1}
-.dc-head{display:grid;grid-template-columns:1fr auto auto;gap:24px;align-items:end;margin-bottom:14px}
-.dc-title{display:grid;gap:6px}
-.dc-kick{font-family:var(--mono);text-transform:uppercase;letter-spacing:var(--tr-label);font-size:var(--fs-micro);color:#5FF0E4;display:flex;align-items:center;gap:8px}
-.dc-kick::before{content:"";width:7px;height:7px;border-radius:50%;background:#5FF0E4;box-shadow:0 0 0 0 rgba(95,240,228,.6);animation:pulse 2s infinite}
-.dc-title h3{font-size:var(--fs-h3);line-height:var(--lh-title);color:#fff;margin:0}
-.dc-title a{font-size:var(--fs-micro);color:rgba(255,255,255,.5);text-decoration:none;font-family:var(--mono);letter-spacing:.04em}
-.dc-title a:hover{color:#fff}
-.dc-kpis{display:flex;gap:24px}
-.dc-kpis div{display:grid;gap:4px}
-.dc-kpis span{font-family:var(--mono);text-transform:uppercase;letter-spacing:var(--tr-label);font-size:var(--fs-micro);color:rgba(255,255,255,.5)}
-.dc-kpis b{font-family:var(--body);font-size:1.15rem;font-weight:600;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap}
-.dc-kpis b small{font-size:.72rem;font-weight:400;color:rgba(255,255,255,.5);margin-left:4px}
-.dc-kpis i{font-style:normal}.dc-kpis i.up{color:#5FF0E4}.dc-kpis i.dn{color:#FF7AA5}
-.dc-btn{border:1px solid rgba(255,255,255,.22);background:transparent;color:#fff;border-radius:999px;padding:10px 16px;font:700 var(--fs-label) var(--mono);text-transform:uppercase;letter-spacing:var(--tr-label);cursor:pointer;white-space:nowrap}
-.dc-btn:hover{background:#fff;color:#111}
-.hero .dchart .chart{height:230px;margin:0;padding:0;border:0;background:none;border-radius:0;-webkit-backdrop-filter:none;backdrop-filter:none}
-.dc-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px;font-family:var(--mono);text-transform:uppercase;letter-spacing:var(--tr-label);font-size:var(--fs-micro);color:rgba(255,255,255,.45)}
-#dcDots{display:flex;gap:6px}
-#dcDots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.2)}
-#dcDots i.on{background:var(--grad);width:18px;border-radius:3px}
-@media (max-width:980px){.dc-head{grid-template-columns:1fr auto}.dc-kpis{grid-column:1/-1;order:3}}
-@media (max-width:640px){.dchart{margin-top:30px;padding:16px 14px 12px;border-radius:18px}.dc-head{grid-template-columns:1fr;gap:14px}.dc-btn{justify-self:start;padding:9px 14px;order:4}.dc-kpis{gap:16px;flex-wrap:wrap}.dc-kpis b{font-size:1rem}.hero .dchart .chart{height:180px}.dc-foot{flex-direction:column;align-items:flex-start}}
+/* public dataset chart (minimal, animated) */
+.dchart{margin-top:44px;position:relative;z-index:1}
+.dc-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:var(--mono);text-transform:uppercase;letter-spacing:var(--tr-label);font-size:var(--fs-micro);color:rgba(255,255,255,.5);margin-bottom:6px}
+.dc-kick{width:7px;height:7px;border-radius:50%;background:#5FF0E4;box-shadow:0 0 0 0 rgba(95,240,228,.6);animation:pulse 2s infinite}
+#dcName{color:rgba(255,255,255,.8)}
+#dcLast{color:#fff;font-weight:700}
+.dc-sep{opacity:.5}
+#dcSrc{margin-left:auto;color:rgba(255,255,255,.45);text-decoration:none}
+#dcSrc:hover{color:#fff}
+.hero .dchart .chart{height:150px;margin:0;padding:0;border:0;background:none;border-radius:0;-webkit-backdrop-filter:none;backdrop-filter:none}
+#dcDots{display:flex;gap:6px;margin-top:6px}
+#dcDots i{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.18);transition:.3s}
+#dcDots i.on{background:var(--grad);width:16px;border-radius:3px}
+@media (max-width:640px){.dchart{margin-top:30px;padding-bottom:10px}.hero .dchart .chart{height:120px}#dcSrc{margin-left:0}}
 /* ---------- mobile ---------- */
 @media (max-width:640px){
   body{font-size:16px}
@@ -763,15 +753,14 @@ em,.hl{font-style:normal;font-weight:600;color:var(--hl)}
   <div class="wrap">
     <div class="dchart">
       <div class="dc-head">
-        <div class="dc-title"><span class="dc-kick" data-i="dc.kick">Public dataset · monthly</span><h3 id="dcName"></h3><a id="dcSrc" href="#" rel="noopener"></a></div>
-        <div class="dc-kpis"><div><span data-i="dc.latest">Latest</span><b id="dcLast"></b></div><div><span data-i="dc.change">Since 2011</span><b id="dcChg"></b></div><div><span data-i="dc.range">Range</span><b id="dcRange"></b></div></div>
-        <button type="button" class="dc-btn" id="dcNext"><span data-i="dc.next">Another dataset</span> ↻</button>
+        <span class="dc-kick"></span><span id="dcName"></span><span class="dc-sep">·</span><span id="dcLast"></span>
+        <a id="dcSrc" href="#" rel="noopener"></a>
       </div>
       <div class="chart" id="chartBox">
         <canvas id="chart" role="img" aria-label="Line chart of a public dataset"></canvas>
         <div class="readout" id="readout"></div>
       </div>
-      <div class="dc-foot"><span id="chartLbl" data-i="hero.chart">Real data · a random dataset on every visit · hover to inspect</span><span id="dcDots"></span></div>
+      <div id="dcDots" aria-hidden="true"></div>
     </div>
   </div>
 </header>
@@ -901,7 +890,7 @@ var T={tr:{
 "hero.hello":"Merhaba, ben Furkan",
 "hero.h1":'Verinin <span class="o">dağınık</span> olduğu yerde <span class="chip"><img src="logos/tools/ga.svg" alt=""><img src="logos/tools/gtm.svg" alt=""><img src="logos/tools/bigquery.svg" alt=""></span> düzen kurarım.',
 "hero.lede":"İstanbul'da <b>Web &amp; App Analytics Specialist</b> olarak çalışıyorum. Tracking kurar, MMP ve atribüsyonu bağlar, ham veriyi BigQuery'de modelleyip <em>ekiplerin gerçekten kullandığı raporlara</em> çeviririm.",
-"hero.c1":"İşlerime bak","hero.c2":"Bir proje konuşalım","hero.chart":"Gerçek açık veri · her girişte rastgele bir veri seti · incelemek için üzerine gelin","dc.kick":"Açık veri seti · aylık","dc.latest":"Son değer","dc.change":"Ocak 2011'den beri","dc.range":"Aralık (2011–)","dc.next":"Başka veri seti","hero.chartm":"Gerçek açık veri · her girişte rastgele · incelemek için dokunun",
+"hero.c1":"İşlerime bak","hero.c2":"Bir proje konuşalım","hero.chart":"Gerçek açık veri · her girişte rastgele bir veri seti · incelemek için üzerine gelin","dc.latest":"Son değer","dc.change":"Ocak 2011'den beri","dc.range":"Aralık (2011–)","dc.next":"Başka veri seti","hero.chartm":"Gerçek açık veri · her girişte rastgele · incelemek için dokunun",
 "ab.k":"Hakkımda","ab.t":"Veriyi önce güvenilir, sonra kullanışlı yaparım.",
 "ab.bio":"8 yılı aşkın süredir fintech, perakende, mobilite ve ajans tarafında çalışıyorum. İşim, bir kullanıcının ilk tıklamasından satın almasına kadar her adımın <em>doğru ölçülmesi</em> ve bu verinin pazarlama, ürün ve yönetim için <em>aynı dili konuşması</em>. Rakamlar tutmadığında beni ararlar; genelde sorun iki aracın arasındadır.",
 "ab.now":"ŞU AN","ab.nowd":"Kripto varlık alım-satım platformu · İstanbul · Türkiye pazarı",
@@ -923,7 +912,7 @@ var T={tr:{
 "hero.hello":"Hi, I'm Furkan",
 "hero.h1":'I bring order where <span class="chip"><img src="logos/tools/ga.svg" alt=""><img src="logos/tools/gtm.svg" alt=""><img src="logos/tools/bigquery.svg" alt=""></span> data gets <span class="o">messy</span>.',
 "hero.lede":"I'm a <b>Web &amp; App Analytics Specialist</b> in Istanbul. I set up tracking, connect MMP and attribution, model raw data in BigQuery and turn it into <em>reports teams actually use</em>.",
-"hero.c1":"See my work","hero.c2":"Let's talk about a project","hero.chart":"Real public data · a random dataset on every visit · hover to inspect","dc.kick":"Public dataset · monthly","dc.latest":"Latest","dc.change":"Since Jan 2011","dc.range":"Range (2011–)","dc.next":"Another dataset","hero.chartm":"Real public data · random dataset each visit · tap to inspect",
+"hero.c1":"See my work","hero.c2":"Let's talk about a project","hero.chart":"Real public data · a random dataset on every visit · hover to inspect","dc.latest":"Latest","dc.change":"Since Jan 2011","dc.range":"Range (2011–)","dc.next":"Another dataset","hero.chartm":"Real public data · random dataset each visit · tap to inspect",
 "ab.k":"About","ab.t":"First I make data trustworthy. Then I make it useful.",
 "ab.bio":"For 8+ years I've worked across fintech, retail, mobility and agency teams. My job is making sure every step from a user's first tap to their purchase is <em>measured correctly</em>, and that marketing, product and leadership <em>read the same numbers</em>. People call me when the numbers don't match; usually the problem sits between two tools.",
 "ab.now":"NOW","ab.nowd":"Crypto-asset trading platform · Istanbul · Türkiye market",
@@ -1024,17 +1013,15 @@ function fmt(v,d){ var loc=lang==="tr"?"tr-TR":"en-GB"; return v.toLocaleString(
 function withUnit(v,ds){ var u=ds.unit; return (ds.id==="temp"&&v>0?"+":"")+fmt(v,ds.dec)+(u?(u==="°C"?u:" "+u):""); }
 function mLabel(k,long){ var p=k.split("-"), d=new Date(+p[0],+p[1]-1,1); return d.toLocaleDateString(lang==="tr"?"tr-TR":"en-GB",long?{month:"short",year:"numeric"}:{year:"numeric"}); }
 function renderMeta(){
-  var ds=S(), pts=ds.pts, first=pts[0][1], last=pts[pts.length-1][1], vals=pts.map(function(x){return x[1];});
+  var ds=S(), pts=ds.pts, last=pts[pts.length-1][1];
   document.getElementById("dcName").textContent=ds[lang]||ds.en;
-  var a=document.getElementById("dcSrc"); a.href=ds.url; a.textContent=(lang==="tr"?"Kaynak: ":"Source: ")+ds.src+" ↗";
-  document.getElementById("dcLast").innerHTML=withUnit(last,ds)+' <small>'+mLabel(pts[pts.length-1][0],true)+'</small>';
-  var ch=ds.id==="temp"?(last-first):(last/first-1)*100, up=ch>=0;
-  document.getElementById("dcChg").innerHTML='<i class="'+(up?"up":"dn")+'">'+(up?"▲ ":"▼ ")+(ds.id==="temp"?fmt(Math.abs(ch),2)+" °C":fmt(Math.abs(ch),0)+"%")+'</i>';
-  document.getElementById("dcRange").textContent=fmt(Math.min.apply(null,vals),ds.dec)+" – "+fmt(Math.max.apply(null,vals),ds.dec);
+  document.getElementById("dcLast").textContent=withUnit(last,ds);
+  var a=document.getElementById("dcSrc"); a.href=ds.url; a.textContent=(lang==="tr"?"Kaynak ↗":"Source ↗"); a.title=ds.src;
   document.getElementById("dcDots").innerHTML=SERIES.map(function(x,i){return '<i class="'+(i===cur?"on":"")+'"></i>';}).join("");
-  cv.setAttribute("aria-label",(ds.en)+", monthly, "+pts[0][0]+" to "+pts[pts.length-1][0]+". Latest "+withUnit(last,ds)+".");
+  cv.setAttribute("aria-label",ds.en+", monthly since 2011. Latest "+withUnit(last,ds)+".");
 }
-document.getElementById("dcNext").addEventListener("click",function(){ cur=(cur+1)%SERIES.length; try{sessionStorage.setItem("fk-ds",cur);}catch(e){} prog=reduce?1:0; renderMeta(); requestAnimationFrame(draw); });
+var cycleT=0; function nextDs(){ cur=(cur+1)%SERIES.length; try{sessionStorage.setItem("fk-ds",cur);}catch(e){} prog=0; fade=0; renderMeta(); }
+var fade=1;
 function niceStep(range){ var r=range/4, m=Math.pow(10,Math.floor(Math.log10(r))), n=r/m; return (n<1.5?1:n<3?2:n<7?5:10)*m; }
 function draw(){
   var dpr=Math.min(window.devicePixelRatio||1,2), w=box.clientWidth, h=box.clientHeight;
@@ -1042,27 +1029,27 @@ function draw(){
   if(cv.width!==Math.round(w*dpr)){cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr);}
   var c=cv.getContext("2d"); c.setTransform(dpr,0,0,dpr,0,0); c.clearRect(0,0,w,h);
   var ds=S(), pts=ds.pts, n=pts.length, vals=pts.map(function(x){return x[1];});
-  var mn=Math.min.apply(null,vals), mx=Math.max.apply(null,vals), st=niceStep(mx-mn), lo=Math.floor(mn/st)*st, hi=Math.ceil(mx/st)*st;
-  c.font="10px 'Neutral Face',sans-serif";
-  var lbW=0; for(var v=lo;v<=hi+1e-9;v+=st){ lbW=Math.max(lbW,c.measureText(fmt(v,st<1?(st<.1?2:1):0)).width); }
-  var small=w<640, padL=lbW+14, padR=8, padT=10, padB=24, cw=w-padL-padR, ch=h-padT-padB;
+  var mn=Math.min.apply(null,vals), mx=Math.max.apply(null,vals);
+  var padL=6, padR=14, padT=18, padB=14, cw=w-padL-padR, ch=h-padT-padB, lo=mn-(mx-mn)*.08, hi=mx+(mx-mn)*.08;
   var X=function(i){return padL+i*cw/(n-1);}, Y=function(v){return padT+ch-(v-lo)/(hi-lo)*ch;};
-  c.textBaseline="middle"; c.textAlign="right";
-  for(var v2=lo;v2<=hi+1e-9;v2+=st){ var y=Math.round(Y(v2))+.5; c.strokeStyle=Math.abs(v2-lo)<1e-9?"rgba(255,255,255,.2)":"rgba(255,255,255,.07)"; c.lineWidth=1; c.beginPath(); c.moveTo(padL,y); c.lineTo(w-padR,y); c.stroke(); c.fillStyle="rgba(255,255,255,.45)"; c.fillText(fmt(v2,st<1?(st<.1?2:1):0),padL-8,y); }
-  if(ds.id==="temp"&&lo<0&&hi>0){ var y0=Math.round(Y(0))+.5; c.strokeStyle="rgba(255,255,255,.3)"; c.beginPath(); c.moveTo(padL,y0); c.lineTo(w-padR,y0); c.stroke(); }
-  c.textAlign="center"; c.textBaseline="top"; var every=small?4:2;
-  for(var i=0;i<n;i++){ var k=pts[i][0]; if(k.slice(5)==="01"){ var yr=+k.slice(0,4); if(yr%every===0){ c.fillStyle="rgba(255,255,255,.45)"; c.fillText(String(yr),X(i),padT+ch+8); } c.strokeStyle="rgba(255,255,255,.05)"; c.beginPath(); c.moveTo(Math.round(X(i))+.5,padT); c.lineTo(Math.round(X(i))+.5,padT+ch); c.stroke(); } }
+  c.globalAlpha=Math.min(1,fade); if(fade<1) fade+=.06;
   var last=Math.max(1,Math.floor((n-1)*prog));
   function path(){ c.beginPath(); for(var i=0;i<=last;i++){ var x=X(i), y=Y(vals[i]); if(i===0) c.moveTo(x,y); else { var px=X(i-1), py=Y(vals[i-1]), m=(px+x)/2; c.bezierCurveTo(m,py,m,y,x,y);} } }
   var gl=c.createLinearGradient(padL,0,w-padR,0); gl.addColorStop(0,"#18D9C9"); gl.addColorStop(.55,"#FF9A3D"); gl.addColorStop(1,"#FF3D7F");
   var ga=c.createLinearGradient(0,padT,0,padT+ch); ga.addColorStop(0,"rgba(255,154,61,.22)"); ga.addColorStop(1,"rgba(255,154,61,0)");
   path(); c.lineTo(X(last),padT+ch); c.lineTo(X(0),padT+ch); c.closePath(); c.fillStyle=ga; c.fill();
   path(); c.strokeStyle=gl; c.lineWidth=2.2; c.lineJoin="round"; c.stroke();
-  // pulse on the latest point
-  if(prog>=1){ var lx=X(n-1), ly=Y(vals[n-1]), pr=3+((tick%90)/90)*9; c.fillStyle="rgba(255,61,127,"+(0.35*(1-(tick%90)/90)).toFixed(2)+")"; c.beginPath(); c.arc(lx,ly,pr,0,6.283); c.fill(); c.fillStyle="#FF3D7F"; c.beginPath(); c.arc(lx,ly,3.5,0,6.283); c.fill(); }
+  c.globalAlpha=1;
+  if(prog>=1){
+    var phase=(tick%360)/360, pi=Math.min(n-1,Math.floor(phase*(n-1))), px=X(pi), py=Y(vals[pi]);
+    var gr=c.createRadialGradient(px,py,0,px,py,26); gr.addColorStop(0,"rgba(255,255,255,.35)"); gr.addColorStop(1,"rgba(255,255,255,0)");
+    if(mouseX<0){ c.fillStyle=gr; c.beginPath(); c.arc(px,py,26,0,6.283); c.fill(); c.fillStyle="#fff"; c.beginPath(); c.arc(px,py,3.6,0,6.283); c.fill(); }
+    var lx=X(n-1), ly=Y(vals[n-1]), pr=3+((tick%80)/80)*10; c.fillStyle="rgba(255,61,127,"+(0.4*(1-(tick%80)/80)).toFixed(2)+")"; c.beginPath(); c.arc(lx,ly,pr,0,6.283); c.fill(); c.fillStyle="#FF3D7F"; c.beginPath(); c.arc(lx,ly,3.5,0,6.283); c.fill();
+    if(mouseX<0 && !reduce){ cycleT++; if(cycleT>540){ cycleT=0; nextDs(); } } else cycleT=0;
+  }
   var hov=-1, auto=false;
   if(mouseX>=0) hov=Math.round((mouseX-padL)/cw*(n-1));
-  else if(touchMode && !reduce && prog>=1 && Date.now()-lastTouch>2500){ hov=Math.floor((tick/3)%(n+40))-20; auto=true; }
+  
   if(hov>=0&&hov<n&&prog>=1){
     var hx=X(hov), hy=Y(vals[hov]);
     c.strokeStyle="rgba(255,255,255,.35)"; c.lineWidth=1; c.beginPath(); c.moveTo(Math.round(hx)+.5,padT); c.lineTo(Math.round(hx)+.5,padT+ch); c.stroke();
@@ -1070,11 +1057,11 @@ function draw(){
     if(!auto){
       var prev=hov>=12?vals[hov-12]:null, yoy="";
       if(prev!==null){ var dd=ds.id==="temp"?vals[hov]-prev:(vals[hov]/prev-1)*100; yoy=' · <span style="color:'+(dd>=0?"#0A7F76":"#D6336C")+'">'+(dd>=0?"+":"−")+(ds.id==="temp"?fmt(Math.abs(dd),2)+"°C":fmt(Math.abs(dd),1)+"%")+' YoY</span>'; }
-      ro.innerHTML='<b>'+mLabel(pts[hov][0],true)+'</b> · '+withUnit(vals[hov],ds)+yoy;
+      ro.innerHTML='<b>'+mLabel(pts[hov][0],true)+'</b> · '+withUnit(vals[hov],ds);
       var half=(ro.offsetWidth||200)/2; ro.style.left=Math.min(w-half,Math.max(half,hx))+"px"; ro.style.top=Math.max(0,hy-46)+"px"; ro.style.opacity=1;
     } else ro.style.opacity=0;
   } else ro.style.opacity=0;
-  if(prog<1) prog=Math.min(1,prog+.016);
+  if(prog<1) prog=Math.min(1,prog+.022);
   tick++;
   if(!reduce||mouseX>=0||prog<1) requestAnimationFrame(draw);
 }
